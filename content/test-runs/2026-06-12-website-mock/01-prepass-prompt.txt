@@ -1,0 +1,418 @@
+You are extracting tone-of-voice signals from a voice memo transcript.
+If the transcript contains multiple speakers, extract ONLY from Gregg McElwee's own speech. Nothing said by any other speaker qualifies as a signal, a reference, or an opinion.
+Return ONLY a JSON object with these four keys. No preamble, no explanation.
+
+{
+  "dominant_phrases": ["phrase 1", "phrase 2", "phrase 3"],
+  "energy_level": "relaxed | conversational | animated",
+  "specific_references": ["any local places, street names, neighborhoods, landmarks, or named people mentioned"],
+  "opinions_expressed": ["any strong takes, preferences, or opinions Gregg stated — these are gold, use them"]
+}
+
+Transcript:
+Gregg and Simon D - June 11 VIEW RECORDING - 50 mins (No highlights): https://fathom.video/share/USXxF-83g-Xr2hBX9Cc_DYzxfo1_Ue_s
+
+0:06 - Gregg McElwee (bottbottgenai.com)
+Hello. Hello. I don't see your face, but that's okay.
+
+0:11 - Simo D (bottbottgenai@gmail.com)
+Oh, I am just presenting a screen here. I thought that you could see both, maybe.
+
+0:17 - Gregg McElwee (bottbottgenai.com)
+Oh, I see two of you and a phantom note taker. And let me turn on my camera because you never get this. Oh, wow. That's pretty cool. Yeah, it looks pretty foggy, but hey. Yeah, that's just a stock photo.
+
+0:42 - Simo D (bottbottgenai@gmail.com)
+And I think the photo is actually not foggy. think it's just kind of the way it's been blurred out a bit. So it looks foggy, but the idea would be to get something specific like that you've taken or your photographer's taken and we'll swap that out. Yeah. I talked to him this morning.
+
+1:02 - Gregg McElwee (bottbottgenai.com)
+And unfortunately, he has a really bad cold. So and then he's taking off for the weekend to go see his brother. So I said, need it sooner than later, because my guy's working on my website. But we can work on other things until I get that. He says he had right now that the World Cup is happening. And they're not about any drone flying. I go, it's not even around here.
+
+1:26 - Simo D (bottbottgenai@gmail.com)
+What's their problem?
+
+1:27 - Gregg McElwee (bottbottgenai.com)
+He says, Greg, they know how to read code. And I got to be careful. I go, ah, shoot. He says, I can go apply for a permit. I go, do you have anything in stock? I mean, somewhere in your database? He says, yeah, I did a listing here in Orange County. I mean, in San Clemente. I said, well, go through that and see if there's any footage near the ocean that might look good. And I only need a 15 second clip, right? Yeah.
+
+1:56 - Simo D (bottbottgenai@gmail.com)
+Yeah. Or just even some images. It doesn't even really matter. If you If to put a video, we can put a video in there.
+
+2:02 - Gregg McElwee (bottbottgenai.com)
+It just needs to... I like movement. I don't know why. I think it's cool. But if it's too much trouble, then no. Or if it's problems with cell phones, who knows?
+
+2:13 - Simo D (bottbottgenai@gmail.com)
+It's not an issue for that. It's just like, if the video is moving too fast, the loop is weird, right? Because it's going to loop. Oh.
+
+2:26 - Gregg McElwee (bottbottgenai.com)
+So you kind of want it to be like somewhat of a static shot, you know?
+
+2:34 - Simo D (bottbottgenai@gmail.com)
+Just so it's not like... Because if it's panning really fast, it's going to loop all the way back. And it's going to be kind of like... It's not going to be smooth. Unless we can like...
+
+2:44 - Gregg McElwee (bottbottgenai.com)
+Unless we can like pause it, reverse it, and kind of do it like that.
+
+2:47 - Simo D (bottbottgenai@gmail.com)
+Reverse back and forth. So it's like smooth transition. I mean, realistically, most people are going to like scroll past it, right? So hopefully they don't see the loop. But... Yeah, but anyways, yeah, whenever you can get me something, it's not a big deal, right? We can swap it out. This isn't live though right now because I wanted you to, this is just literally like an HTML file that's just like on my computer. But this is a general kind of layout. So I just wanted to get your idea if you liked it. So we got this, I don't know if you want to switch this image out either of you. You did good job with that, yeah. It actually took me a little bit of time to kind of like. I see you did work on this.
+
+ACTION ITEM: Email Gregg: recap, site copy, community list, updated sheet
+
+3:34 - Gregg McElwee (bottbottgenai.com)
+I go, okay, yeah, this guy's running up hours, but that's okay. Yeah, I wanted to read and see how the verbiage is. And I don't know if you can send that to me somehow so I can look at the verbiage or add anything. It's hard to tell from this little, I'm on the laptop now. Yeah, I can. If you can't, I understand. But so far I'm really liking it. It's better than the other guys. I mean, I'm really impressed. Oh, thanks.
+
+4:06 - Simo D (bottbottgenai@gmail.com)
+Yeah, I thought, I personally thought it was better than that guys too, so thank you for sharing that. So then, this will be the blog posts. Essentially, these are just stock right now. They don't go anywhere. And then, so, because you have the two sites, I didn't want to rehash any information. So this site connects directly to your other site. So these are just going to be like, these cards will put pictures in. But when you click on them, it's going to take you to your other site and take you to the San Clemente page on your other site. Okay.
+
+ACTION ITEM: Source 15s ocean hero video/images; send to Simo
+
+4:46 - Gregg McElwee (bottbottgenai.com)
+I haven't seen that San Clemente one before. Is that ours or your one you found? Or where did you find that picture?
+
+4:55 - Simo D (bottbottgenai@gmail.com)
+Well, this is on your GreggMcElwee.com. I haven't even seen that.
+
+5:06 - Gregg McElwee (bottbottgenai.com)
+I go, dude, where did you find this stuff? I guess the other guy's doing it. I'm spending a lot of money. Websites don't generate money for me. I'm burning through money. But I don't like my other website. And like I said, I'm spending too much money on it. So I can't wait to get rid of it.
+
+5:23 - Simo D (bottbottgenai@gmail.com)
+Well, it's not making you any money right now because it has no search engine value. So it had literally a score of 13 out of 100, which is essentially nothing. When I audited it to make sure to see if there's anything worth salvaging it, essentially there wasn't. So that's the reason why it's not making you any money. But it will. Once we get the SEO going and stuff like that, it should, right? You should start ranking a little bit higher. And then you can actually have And then it draws value, right? Because it's bringing people in. And if it brings their buyer, then it's created value for you. So all of these, all of these sources. Actually, we'll just get photos of all of these locations. I can, again, I'll send you kind of like a list and we'll put those in. These, this is same thing. They all go back to your website, to those specific pages, again, because I didn't want to rehash anything. So what this is going to become, your real estate and loans is going to become like your SEO and like content page. So this is where your blog posts, your blog is going to live. So a lot of this stuff is, is, is like, I'm trying, yeah, I'm trying not to rehash what the other site is already doing. Right. Your other sites, like your personal page and it's where like you're, you'll most likely like convert, you know, and have your conversations with, with potential buyers and stuff. And this is going to be the one that's going to like get people from search traffic coming, coming to you.
+
+6:53 - Gregg McElwee (bottbottgenai.com)
+So it's just, it's got specialties page.
+
+6:55 - Simo D (bottbottgenai@gmail.com)
+So again, this is just sort of like, we can, we can tweak this stuff if you want. So probate and estate transitions, divorce, real estate, and buyers and sellers, it's just, I mean, again, I can send you, I can maybe just send you all a copy if you want to. I don't know what you can do or just tell me what site to go to and look at it.
+
+7:17 - Gregg McElwee (bottbottgenai.com)
+even be able to just get I'm really liking this a lot. mean, yours is way better. I mean, I'm just looking, it has a different feel to it. It's gradient shading, the fonts even better, and everything about it, you have a knack for doing this. I know this is not a big moneymaker, but I'm liking it.
+
+ACTION ITEM: Set up Google Workspace + new email; update site contact email
+
+So, and let me see that on my new email, or what do we have down there? Gregg, real estate loans, that's the same one.
+
+7:48 - Simo D (bottbottgenai@gmail.com)
+Yeah, we can, if you want to switch this out with a new one, we can do that. I don't know.
+
+7:55 - Gregg McElwee (bottbottgenai.com)
+I think, I think we should, we don't have it up and running yet. So. I don't know. Don't you think I should have one that's totally different, so I know which one's working better? It's up to you. What do you think? You mean, which email you mean? No, yeah. I mean, it'd be kind of interesting having a different email and then checking that email and go, wait a minute. I'm getting a lot more hits on this email than the other one, because the other one I'm bombarded with spam like crazy. Everybody wants me to listen to their health podcast and sell me something and janitorial cleaning and who knows? Everybody has my email because I advertise my website out there. Yeah. And then they then they resell it to other sellers and, you know, vitamins and who knows? But, you know, and then I get I'm ADD and I get distracted for hours doing my freaking emails and I go, you know, I should just look at. A couple times a day, and the whole key of real estate is getting back to the people quickly. So this is, we created a whole new website address, right, for this one, right, or email? Yeah, we have that new email.
+
+9:17 - Simo D (bottbottgenai@gmail.com)
+It wouldn't make sense given what this tagline is. No one knows, we could even change no's to sell, so like no one sells the OC better than Gregg McElwee, and then your email could be Gregg at sells DOC, so that would totally make sense.
+
+9:32 - Gregg McElwee (bottbottgenai.com)
+Yeah, I'm kind of liking that angle, because I'm paying for a new website, why not, this is it. You know, for now, you're developing it, and I understand you need something to lock it in so you have access.
+
+9:48 - Simo D (bottbottgenai@gmail.com)
+Yeah, it's pretty simple to like, it's pretty quick to swap those out, it's not.
+
+9:53 - Gregg McElwee (bottbottgenai.com)
+Yeah, I'm excited, I mean, this is the least of it, I need to get going on my marketing, and We've coming in, and it's going to be weird because September I'm gone. I haven't bought my airline tickets, but I'm dreading because of all the fuel surcharges. But anyways, where is I going with this? I want to get my business up and running again, and this is a critical part, I think, you know, having a big website. Yeah.
+
+10:27 - Simo D (bottbottgenai@gmail.com)
+So if you're liking this, that's good. Like we can obviously make tweaks and honestly, we can get this live and get it off.
+
+ACTION ITEM: Build AI blog agent; then publish 3 posts pre-launch, review 1st few
+
+And so to get you off of Agent Elite as well. Like, so this is essentially like ready to go and we can always tweak things while it's live. The next thing I wanted to talk to you about was the blog. So this is the blog page. And just to get this stuff, get it like, essentially, I'm planning. Obviously you your approval on it all because like you can hire someone to do monthly blogs for you, right, but it's probably going to cost anywhere from like 75 to 100 bucks a blog post for having them like write it, post it for you. So I've developed a, an idea for essentially like, I'm just going to use the word agent, like a blog writing and posting agent, essentially. Yeah, it'll be, it'll be AI generated, but you're going to have input on it. So essentially what it's going to be, is it going to be a system, there'll be a little bit of a little dashboard, essentially that you can like a web dashboard will be linked to one of the, one of these website domains that you have, and you'll click, you'll, you can just bookmark that link, you, you'll get pinged. The system will ping you and ask you to like record a voice note about a blog topic that it is. suggests for you. So there'll be essentially a backlog list. That's crazy.
+
+12:10 - Gregg McElwee (bottbottgenai.com)
+never heard of anything like this. It's kind of like, does this go to YouTube or Instagram or Facebook or where is this going? This will go to your website and it'll help with the SEO.
+
+12:23 - Simo D (bottbottgenai@gmail.com)
+Oh, shoot.
+
+12:25 - Gregg McElwee (bottbottgenai.com)
+Okay. We're adding more to my plate and then trying to do less. That's why I like automatic. Well, if you let me finish, it is automatic.
+
+12:35 - Simo D (bottbottgenai@gmail.com)
+So the only reason why I want your input on this is because there's a lot of AI generated content out there. And if Google suspects that you're just posting kind of bland AI content, it may de-rank you. So you want to have some true value involved in it. So that's that's That's why if you essentially, what the system will do is it just gives you a topic, and honestly, you can spend two minutes just being like, just giving some of your personal experience. I've never done this.
+
+13:12 - Gregg McElwee (bottbottgenai.com)
+I've never been on camera like this. Oh, no. It's not on camera. It's not on camera.
+
+13:17 - Simo D (bottbottgenai@gmail.com)
+It's just a voice note. It's just a voice note. So it's essentially, so then the system transcribes your voice note, and then takes what you say about that topic, and the topic at large, and creates a blog post for it about that, and then auto posts it to your website, and it's all SEO optimized. then you're building, and then it actually, what it'll also do is it's going to create two social media posts about it as well that you don't have to share them if you don't want to. So it'll give you the blog post link. It'll give you a LinkedIn post and a Facebook post, and it's up to you whether you want to do it. Unfortunately, there's no way to automate the posting to those platforms because they have.
+
+14:00 - Gregg McElwee (bottbottgenai.com)
+Somebody told me I'm listening to stupid podcasts again. They say I need to be posting all over the place, like Facebook and LinkedIn and Instagram, and I've never done that really, and so is this site?
+
+ACTION ITEM: Link Instagram-Facebook auto-post; Simo to guide
+
+14:16 - Simo D (bottbottgenai@gmail.com)
+are linked, so you can post once, and you can set it up so it auto-posts the, whether you do it LinkedIn, or sorry, whether you do it Instagram first, and then it auto-posts to Facebook, or you prefer Facebook, it'll auto-post to LinkedIn. So that's because they're the same platform, essentially. They're both Meta, which is Facebook. So those are linked, so that's only really one effort.
+
+14:38 - Gregg McElwee (bottbottgenai.com)
+It went up for my head. Meta is Facebook. I understand that. Meta, I mean, you said LinkedIn is part of Meta? No, sorry.
+
+14:46 - Simo D (bottbottgenai@gmail.com)
+LinkedIn also owns Instagram. Oh, I didn't know that. Yeah, so there's a way that you can connect those two, so that they auto-post. Depends on which platform you want. Like my wife's an artist. She's really big on... between that Instagram and then she just has it linked to auto post to Facebook. So it'll just post what she posts on LinkedIn to Facebook. You can do it the other way around. Like when I'm doing my, my podcast, there are most more people are on Facebook for that audience. So I post to Facebook and it auto posts to LinkedIn. So that's only really a one time effort. Essentially you link the two, you set it up and you'll teach me how to do this.
+
+15:27 - Gregg McElwee (bottbottgenai.com)
+So I'm versed on it. So I go to my site once a week, or you said twice a week. I mean, this is getting me nervous here. Well, here's the thing.
+
+15:38 - Simo D (bottbottgenai@gmail.com)
+So you could see if you wanted to batch, I'm going to set it up. So if you wanted to batch, say four blog posts at a time, you'll be able to like, look, you can see the topic, you can click a button, record just some, some of your own personal experience or insights about that topic, submit them, and you can do them ahead of time. So you don't have to do it. Every five days, you could sit and just, if you wanted to do like 20, you could just do 20, right? If you wanted to spend like a couple hours and just, and I have it so you just talk. You don't have to type anything. So you just speak, the symptom will transcribe what you say, Matt essentially, and then a blog post is created based on the topic and what you say about it. A blog post is created, then it gets auto posted to your site. It'll send you the link plus the two social media posts about them, about that blog post. And then all you would have to do is copy and paste. Okay.
+
+16:33 - Gregg McElwee (bottbottgenai.com)
+Unfortunately, there's nothing I can do about that. I could create an automation and then LinkedIn will catch you and block you from platform. I'm so old school and I'm weird. Okay. Number two, one of my sites, I pay for IDX. I think I do. You know what IDX is? Where somebody clicks on like Dana Point and it shows houses for sale in Dana Point. do see. So they start scrolling down the Have you ever heard of IDX before? Maybe I'll have the other guy do it then on my other site. I don't think I can have it on both sites. I don't think I can. It's the thing where you essentially have like live listings on your site.
+
+17:15 - Simo D (bottbottgenai@gmail.com)
+Yeah, we'll have mine.
+
+17:17 - Gregg McElwee (bottbottgenai.com)
+like a map and it shows all the...
+
+17:19 - Simo D (bottbottgenai@gmail.com)
+Yeah, I would split, yeah, like that probably would make more sense for the other website, just based on kind of like if you're going to have both live together, you can kind of, you know, they each have their own purpose so you're not just like rehashing because you don't want to duplicate content because that also can Google will flag that and it kind of goes against you as far as search rankings and stuff. Oh, really? Yeah, because essentially because what people will do is just this used to happen. So like when they were trying to build their SEO and like in the build their web presence, they would just copy like a site and duplicate it and just... Link it back to theirs, so then it has like all the same stuff because the idea was, oh, like there's just more of this content about me or my business on the web, right, and to build the, but then Google started to flag it being like, well, this is just, this is low value because it's literally just repeated. It's just, it's just verbatim copy. So then, then they nail you for it.
+
+18:22 - Gregg McElwee (bottbottgenai.com)
+Can check on this a month from now after we get it live and make sure it's not doing something weird with, and competing? Is there a way to do, you said you, there's a way to see rankings and stuff. Yeah. I think right now, the way, like I, I built this second site, built real estate and loans with this in mind.
+
+18:41 - Simo D (bottbottgenai@gmail.com)
+So, um, there is some crossover information, but it's not like duplicate, it's not duplicated and like the site, the sites are different and they're going to have different purposes. Right. So like your, the, the, Greg, uh, McElwee.com is going to have like more in-depth stuff about the communities. If you put in on this IDX thing. As well, it's going to be more like real estate listing type platform where the real estate and loans is going to be like a content. So that's where your blog is going to live.
+
+19:16 - Gregg McElwee (bottbottgenai.com)
+I can't believe you did this. Did AI do this all for you? I can't believe how nice this is compared to the other one. It's both.
+
+19:26 - Simo D (bottbottgenai@gmail.com)
+I have quad code do the coding for me, but there's a lot of planning and there's lot of iteration, back and forth. And I had to do the image myself with you breaking out of the circle frame. I created that on my own because AI just couldn't do it for me. I'm impressed.
+
+19:50 - Gregg McElwee (bottbottgenai.com)
+As much as AI does it, it's not really doing it.
+
+19:56 - Simo D (bottbottgenai@gmail.com)
+Without me, it wouldn't have done that, right? It kind of becomes like a partner, essentially. it still takes time to do it, obviously, as you can probably see. But honestly, for the couple days that it took me to do that, I don't know what the other guy charged you for the site, but I can't imagine he did it probably for much cheaper than that. So if you're good with that blog content system, because that's going to help build out your pages, and build out your content, which will help you rank. And if it's valuable information, especially if you can then share those links and kind of promote it with the social media posts, and you can get people going to and clicking and reading and coming to your site, that builds your web presence and it indicates to Google that you're providing value, and it will then increase your rankings, essentially. That's how it works. So that's why we want authentic content, because I can create content. I can just get Claude an API to create this content for you, but what it's going to do is it's going to scrape other people's content and rehash it. So if we can, which is why I want this little voice memo feature for you, so you can give your personal experience and we can write it from like a first person perspective. And that will signal to Google that it's, you know, it's you writing it, it's valuable. It's, you know. Okay.
+
+21:34 - Gregg McElwee (bottbottgenai.com)
+It's out of my comfort zone, but let's do it. Yeah, no one's going to like see you. It's literally just going to be a voice memo. You can do it from your desktop computer.
+
+21:43 - Simo D (bottbottgenai@gmail.com)
+You just click a button. You'll just, it'll, my idea is like that it'll, it'll have the blog post and it might even like, I might even have like some questions based on the post topic to like, whether you answer them or not, but just to help you like kind of get the ball. Okay. Alright. You know what I mean, to like, you can start with them and then, so you, you, you won't have to, you won't have to like say a lot, you know, just like, even like a minute or two, you'll be surprised, like speaking how many words you can speak and then I can build, um, off of that. So if you're talking for like a minute or two, I can, that, you know, that might be three or 400 words and then I can build out like a eight to a thousand word blog post.
+
+22:26 - Gregg McElwee (bottbottgenai.com)
+Oh, it goes that direction. I don't, it doesn't go the other way. Where I can put the blog and then I read it and go, I just say a little bit about it. My version.
+
+22:36 - Simo D (bottbottgenai@gmail.com)
+Well, I'll give you the post topic essentially, and some questions about it. And then you would just talk to the system, answer those questions, talk about that blog topic. And then, and then the system will generate the post for you, but using what you say, your tone of voice, because that's like super important, uh, right now, especially with AI and all the content that it produces. People are also really hesitant to read AI content. So the second anyone who understands some of the fingerprint of AI content, they'll bounce immediately. They just don't want anything to do with it. So my effort is trying to minimize that to the best as we can to make it authentic, which is why having you provide a voice note, because then we can really provide some... Because you might have like a personal story you could tell about a topic, and then we include that into the blog post. So then it creates like, you know, it can like maybe touches emotion, you know, readers can relate to it, that kind of thing.
+
+23:49 - Gregg McElwee (bottbottgenai.com)
+I might need some hand holding on that. So that's cool. Yeah, that's fine.
+
+23:53 - Simo D (bottbottgenai@gmail.com)
+Honestly, like, well, it's all about like the first like few blog posts, especially. Um... We're going to like, I'm going to make sure I'm going to be reviewing it, the content before it gets posted to make sure like I can, I can tweet the prompt, the content generating prompt to like, make sure it's just, everything's good. I'm going to build like a tone of voice profile of you that's going to go into the system. And I'm just going to, I'm going to do that based on just these, the transcripts from our calls that we've had. Um, so, you know, I'm trying to make it to be like as minimal touch for you, but I think to get like your expertise and your knowledge in there, um, we, we, you, we have to like, we got to draw something from you, uh, in order for that. And which is why the voice memo is the easiest way to do it. Cause like, otherwise you have to like, you're gonna have to type, unless you're comfortable typing, if you'd like to write, um, we can do that, but that's more time consuming. We speak faster than we write and, uh, I find it's often easier to like get thoughts out when you. If then I'll sit down to write, and then I'll forget about what I wanted to say, and then I just can't get it out. I'd rather not talk for even a minute.
+
+25:09 - Gregg McElwee (bottbottgenai.com)
+I'd rather just do 30 minutes and get kind of interested in reading it then from there. Okay, well, can- You take what I talk with, and then it expands it through AI. I'm trying to figure out which direction it goes. Yeah, yeah.
+
+25:24 - Simo D (bottbottgenai@gmail.com)
+So essentially, it's like, so there's a topic, it might just be like a one sentence. Usually when I develop like a blog post topic, it has like, just like the title, a short description of what the post will be about. And then in this case, I might add some questions to like help prompt answers. And then, so you'll just, you'll just, you would just speak into, you know, your computer mic and answer the questions and just talk about that topic and your personal experience about it. And then that's it. And then from there there. Yeah. Yeah. It builds a blog post out for you.
+
+26:02 - Gregg McElwee (bottbottgenai.com)
+Wow. Okay. It goes the opposite way. I thought you could read something and talk a little bit about it as the intro and get them interested in trying to read it. It's going to expand.
+
+26:15 - Simo D (bottbottgenai@gmail.com)
+It's how we create this content around. So typically when I'm working for a digital marketing agency and doing this type of thing, so what I would do is I do, I like research the client. I build out a bunch of topics. I submit those topics to them. I get their feedback on them. And then from there, I have like an AI prompt that builds out all the content and then I read and I edit it and I send it back to them. But that's a, that's quite a bit right for you to do. That means like you're approving topics, you're reading and approving the posts. It becomes quite a bit. It becomes quite a bit. Typically these, the clients have like their own kind of marketing department where they They don't produce the content, but they review it. So it becomes like, so you would need then somebody else, like a VA, then reading and approving your content, but we don't, we want to just avoid all that.
+
+27:10 - Gregg McElwee (bottbottgenai.com)
+I want to simplify my life, not complicate it, and we are complicating it a little bit, and committing me to do these blogs. All you got to do is put a voice memo on a topic.
+
+27:22 - Simo D (bottbottgenai@gmail.com)
+That's it. It's like, it's pretty minimal, but we otherwise like, I can just, we can just do posts. But if they're not authentic to you and they don't have your personal experience in it, there's going to be low value and Google will, will figure that out.
+
+27:39 - Gregg McElwee (bottbottgenai.com)
+I'm kind of crying about it. Yeah, I don't want to do it, but you guess what? Let's, let me try it for a while. I haven't even done, people are saying, why aren't I posting on Facebook and Instagram, you know, with my business? And I go, because I don't know what the I'm doing and I haven't even tried it once. And as you do it more. More and more, you could become better. Oh, yeah, you certainly become more comfortable. I haven't been sleeping good. I look awful. You look how handsome. You have all these filters on you. And you have a little kid, too.
+
+28:17 - Simo D (bottbottgenai@gmail.com)
+I got two, yeah. Four and five-year-olds. You can't see it. I got quite a few grays in my beard. All right.
+
+28:25 - Gregg McElwee (bottbottgenai.com)
+But I have to listen to you, and I'm really impressed with what you just showed me. Holy mother, that is great. You kept with the colors, too, blues that I like. And my colors are blue and red if you keep it consistent. American Home Realty is my company in American Home Loans. So that's it. Okay. Okay.
+
+28:53 - Simo D (bottbottgenai@gmail.com)
+So, yeah, if you're good with that, then I'll, I'll, I'm going to, I'll kind of, I already have like a plan for this thing. so I can start to build it out and I'll get it going. And, um, yeah, again, I'll do like a recap of this and send you, and send you what we talked about. So, um, one thing we will need to do is set up your Google workspace so we can get that new, I really want to do that, like, so we can get that email set up. But again, we're not, we're not, we're not quite ready to launch. I would like to have at least three blog posts, uh, done. So the, the, for the first three blog posts, we probably won't do, um, that system because it's going to take me a bit to get that going. But, um, I want a few blog posts on the page before we launch the site. So, um, Are you talking about the website or Google workspace?
+
+29:46 - Gregg McElwee (bottbottgenai.com)
+I think I need Google workspace going pretty soon, don't I?
+
+29:50 - Simo D (bottbottgenai@gmail.com)
+Yeah, yeah, you, you need that pretty soon. But I'm just saying before we launch the new site, put it live onto the internet, um, I would like to have like a few blog posts up. All The first three. But we won't do that through that system because it's going to take a bit of time to get that going. that's more for like long term, right? So it's just kind of posting on your behalf every five. Man, we can shorten it. We can do five a month or four months. So it's just once a week. It just depends on what your cadence, what you want that to be. Typically, yeah, like for the marketing clients I've worked with, it's anywhere from one to eight a month, just depending on what their budget is and what their push for SEO and stuff was. Pretty standard is like four. So like one a week.
+
+30:40 - Gregg McElwee (bottbottgenai.com)
+That's like pretty standard. going to cost extra to do this? You're saying what's my budget? No, sorry, not your budget, but like what the other client's budget is, like what they would want, how big of a push.
+
+30:50 - Simo D (bottbottgenai@gmail.com)
+If you want a bigger SEO push, you publish more. So, but this won't, this will cost. There'll be a little bit of setup on more. There'll be some API calls, essentially, which it'll be minimal. It'll be like a couple. That doesn't mean anything to me.
+
+31:08 - Gregg McElwee (bottbottgenai.com)
+I don't know what API is.
+
+31:10 - Simo D (bottbottgenai@gmail.com)
+It's just essentially like, you know how you use Claude, and you go in, and you're chatting with Claude, and you have like your set monthly subscription. That's essentially using tokens, right, which is like the cost of chatting. So the system that I'm going to build, it does something similar, but it doesn't do it through like Claude interface. It does what's called, what is it called, application APIs. It doesn't matter.
+
+31:41 - Gregg McElwee (bottbottgenai.com)
+It doesn't matter.
+
+31:42 - Simo D (bottbottgenai@gmail.com)
+Essentially what it does is it's what allows the system that I'm going to build to communicate and to use artificial, like use the LLM to create the content. So there's a fee, there's a separate fee for that. The token usage is very, very low. It might be to do like the full month of blog posts. So what I do when I build this is I can create you, I mean, you're already in Anthropic, so I can set it up so that essentially you have to, it's a different, slightly different platform that you go into to do this.
+
+ACTION ITEM: Email Simo Anthropic API creds; then Simo builds tone profile
+
+It's like a developer side, but that's fine. can get it on my username and password for Anthropic or not?
+
+32:26 - Gregg McElwee (bottbottgenai.com)
+Yeah, that might be.
+
+32:28 - Simo D (bottbottgenai@gmail.com)
+Yeah, that could help.
+
+32:30 - Gregg McElwee (bottbottgenai.com)
+Because I'm going to continue paying for the mid-level account. I'm not going to go cheap on it. I'm not going to go free. I think I'm going to keep, Claude is Anthropic, right? Yeah. Yeah. I don't know why they have two names, but that's just to compete with people like me.
+
+32:48 - Simo D (bottbottgenai@gmail.com)
+Anthropic is the company name. Claude is the like soft one, essentially. All right.
+
+32:53 - Gregg McElwee (bottbottgenai.com)
+And he just came out with a new one yesterday. Yeah, I was playing with it. I'd go, wow, that's kind of cool. So anyways, will it automatically, or do you have to pick which one it's going to use? I'm just going to give you my username and password. You have to pick. If you want to see, I can show you how you pick. Well, no, I did it for that moment. Each time, I guess, you have to pick it. Or does it automatically go with the latest version?
+
+33:20 - Simo D (bottbottgenai@gmail.com)
+Not each time, but you can. So honestly, for just chatting and producing some content, you probably don't need to use Fable 5, because it's token-heavy, and it uses a lot of compute, essentially. uses a lot of data. So here, it's just down here. This Sonnet 4.6 is pretty good. It's essentially cost-efficient. But yeah, this is where you change models. you can change models. These are all the different models here, to the Fable 5, 4.
+
+33:58 - Gregg McElwee (bottbottgenai.com)
+So what I would do is Wow. Yeah. And we're in another year, and there are going to be a few more. This is overwhelming me, and I'm glad I have you kind of going, hey, Gregg, I'm keeping on top of this, too. And it's changing so much. I mean, I can't believe this. Oh, yeah.
+
+34:19 - Simo D (bottbottgenai@gmail.com)
+Like, the LinkedIn post about, like, the model, essentially the timeframe collapse. So, like, 4.6 came out. It was, like, three months ago. And then 4.7 came out, like, a month ago. And then 4.8 just came out two weeks ago. And then they already have Fable 5 app.
+
+34:35 - Gregg McElwee (bottbottgenai.com)
+And so it's, like, there'll be another one in, like, ten days.
+
+34:40 - Simo D (bottbottgenai@gmail.com)
+But who knows?
+
+34:41 - Gregg McElwee (bottbottgenai.com)
+I don't know. But you know what? And that's why you're going to keep your business going, because I'm going to have to call you once a year. I don't know how I ever pay you. I haven't paid you yet, have I? I don't even think so. No. think you have to do it through. Oh, yeah. Why is there something? I started saving that up. But you do it through AI Architects, I think.
+
+35:02 - Simo D (bottbottgenai@gmail.com)
+There's a way on your side that you can review all that stuff.
+
+35:07 - Gregg McElwee (bottbottgenai.com)
+I don't want that. They're going to rip me off. At least they found you. I'm happy with you. I'm not happy with them. But anyway, a year down the road, I need to probably revisit how AI changes. Hey, Gregg, let's use this in your system. Yeah, for sure.
+
+35:27 - Simo D (bottbottgenai@gmail.com)
+We'll have to update. I've already had to do it for some of the stuff I've built. You have to change because the API calls a specific model. So I've already had to go in and change models for stuff I've built because they've discontinued because they're old. So that does happen. So there is like a there'll be like a bit of maintenance over time to as they like models increase the cost like the cost of those models comes down. And they decide to retire other models, kind of thing, so they're always cycling through.
+
+36:04 - Gregg McElwee (bottbottgenai.com)
+We're going to be touching base a couple times a year after this, so cool. I'm so ADD. I saw your right arm. Lift your right arm. That's cool. Is that a wave? Yeah, sort of.
+
+36:19 - Simo D (bottbottgenai@gmail.com)
+It's the Japanese style, so it's actually like, there's a crane, and it's fighting.
+
+36:26 - Gregg McElwee (bottbottgenai.com)
+Where's the face?
+
+36:27 - Simo D (bottbottgenai@gmail.com)
+It's hard to see on this one. It's fighting a snake.
+
+36:31 - Gregg McElwee (bottbottgenai.com)
+That is so cool. I don't have any tattoos. Yeah, I don't want to mark it. Once you start with one, you don't stop at one, so. Oh my daughter, don't do that.
+
+36:43 - Simo D (bottbottgenai@gmail.com)
+It goes that far, and then actually there's over here too.
+
+36:47 - Gregg McElwee (bottbottgenai.com)
+My one other son did it, and he has tattoos coming up his neck. mean, that's not professional. Oh my God. It looks like it's crawling out of his neck. And my daughter has like the biggest. I go, come on, dude. I thought you were going to do a little tiny hummingbird on your back. I go, no, stop it. Then my wife said she wanted a tattoo, and I said yes, and it was like half her back. It's like, oh my gosh, stop it. I mean, if it's something, if it's art, you really appreciate it. I can't yell at you. I'm just an old grumpy man. You know, I'm not going to do a tattoo unless I disfigure something where I need to keep, you know, something.
+
+ACTION ITEM: Complete Wise setup; send payment to Simo
+
+But anyways, thank you for today. I got it set up. I think it's a WISE account, W-I-S-E. I started it, and I thought I linked it, and I got distracted.
+
+37:43 - Simo D (bottbottgenai@gmail.com)
+Let me know if you're having any issues.
+
+37:46 - Gregg McElwee (bottbottgenai.com)
+Was that right? You need money transported to your country, and WISE, you don't have Chase or Wells Fargo, so I have to use WISE, W-I-S-E. Yeah. You're the one that told me that, I thought. Yeah, it was one of the platforms, too, on AI Architects that they use.
+
+38:08 - Simo D (bottbottgenai@gmail.com)
+There's other methods we can use, too, if it becomes too complicated or anything. But let me know if you're having issues in their platform and stuff. I find their platforms a bit clunky, the AI Architects one. I don't want to use...
+
+38:22 - Gregg McElwee (bottbottgenai.com)
+I mean, they got me you, and I paid them already for that. They recharged up front. So I'd rather have them not bill you. I mean, even though they want to see what you're doing, I mean, they're really micromanaging you. So I guess they can hire you again for somebody else. But I'm already sold on you. So you got me hook, climb, and sinker. So you got me down the road here, because I know I'm going to have to revisit you down the road again. I just want to get a few things built in me not being run over by the world here, other words, AI is really... And you created this great site. I'm very happy. And then we're going to do other things. I keep on forgetting all my notes. My mind's all over the place today. Yeah, we're going to do the website first and the blog post and get all that going.
+
+39:15 - Simo D (bottbottgenai@gmail.com)
+And then, yeah, there was a few other stuff. Like there was the probate enrichment and stuff. And I'm trying to remember what else was on there. Oh, yeah, like the phone.
+
+39:31 - Gregg McElwee (bottbottgenai.com)
+I don't have to think about it. I thought you can automatically send it to a mail house and the mail house does the mailing is for me, but I don't think they have that yet. Well, we'll see. We maybe because it could be something that like we build that auto does it for us, right?
+
+39:46 - Simo D (bottbottgenai@gmail.com)
+You can essentially build almost anything now that you can imagine. There's like the only the only real things I bump into is like security stuff like the captures, you know, like little image things where you got to like click the images or And in the words and stuff like that. That's the only thing that blocks a kind of automation right now, because it becomes like, like, it's like almost like fraud, if you try to skirt that system. But, but anything else you can, you can pretty much do like, there's the coding and the tools available to connect things is just it's, so we can probably figure out a way that maybe it's just like, you know, once we have all the information that you want, it just. Auto sends to this other system, whether that's, I don't know, I don't, I don't have to see like how you're currently doing it, like how you send stuff, but if you're just like sending them like a list, did somehow electronically. done anything with them yet.
+
+40:43 - Gregg McElwee (bottbottgenai.com)
+I, I'm thinking, I need instead of relying on my past clients who are not moving, and dying, financially, and just waiting for somebody to do something, I get a few calling, but they're not doing anything. I'd rather create new business. business. For people who have to sell and that's divorces and probate, you know, most half of them pan out, you know, or at least half of them will be legit because, you know, sometimes people get back together, you know, for the divorce and then probate. Maybe the wife doesn't want to move. She loves her little house and she's glad to get rid of her husband. He's dead and now she doesn't she can enjoy your house in peace and quiet. So she's not going to move. So but eventually there are deals out there where, you know, the grandma finally dies and all the kids are like vultures. They went out their money as quick as possible. So, yeah.
+
+41:43 - Simo D (bottbottgenai@gmail.com)
+So, yeah, there's definitely an automation for sure there because just through all the enrichment and stuff. Right. All right. The image of the data and everything.
+
+41:51 - Gregg McElwee (bottbottgenai.com)
+So you mentioned I had to keep in touch with AI architect.
+
+42:00 - Simo D (bottbottgenai@gmail.com)
+I forgot even how they even get ahold of them and read what I'm supposed to be making notes onto their thing too or you you just have to do your weekly update yeah no well actually they make me do it daily I gotta go in there invoice daily and then I think their system like creates like a weekly report or something like that um wow I am so sorry it's not your fault it's not your fault honestly they weren't super clear with me on what their process was they have like all these videos you like they get you to watch and then and then when the actual process unfolds it's not what the video says so it's a little confusing um honestly if you at any point if you want to just like kind of sidestep that um I mean they've sold you that plan right so you have that and um yeah if you're ever with wanting just to like sidestep that plan I'll hold up like my end of The agreement, which is like the price and the workflow, and yeah, I'm happy just to like work one-on-one. I see that's how I typically do things.
+
+43:08 - Gregg McElwee (bottbottgenai.com)
+The stole me the program said AI was included for the first 90 days. And then somebody came back and goes, no, that's not true. And that's after I paid them. it's like, you guys jerked me, man. I thought it was all included. Now I'm going have to pay another fee on top of that. And I go, oh my gosh, this is going to get expensive. But you know what? Yeah, well, find out what that is. Because if it's like some sort of weird management fee or anything like that, like I don't think. No, they charge kind of a nice chunk of money to find you. I don't know. They sent me three people. I watched your, I read your profile. I read the other two. And I just clicked with you. I mean, you're more like me, you know. You're like my brother or something. I just connected. You said you're no real estate and all that. So, anyway. Thank I connected with you, and I said, let's run with it, and I'm happy so far. Did you time out or something? I don't see your face. Yeah, it was a little bit of lag.
+
+44:12 - Simo D (bottbottgenai@gmail.com)
+We have some bad weather here right now, and so it often kind of affects the power of the internet sometimes.
+
+ACTION ITEM: Send Gregg AI Architects platform login; then Gregg submits daily time
+
+44:20 - Gregg McElwee (bottbottgenai.com)
+All right.
+
+44:24 - Simo D (bottbottgenai@gmail.com)
+Okay, well, yeah, I think you'll have to go on just for now, like the AI Architects platform or something. I'm to have some sort of login for you, but otherwise, I can just send you, like, all my hours or whatever, because we are like mid-month pretty much for the first two weeks. So, yeah, yeah, I think it's, I'm getting laggy or something.
+
+44:52 - Gregg McElwee (bottbottgenai.com)
+Okay, well, I don't want to go broke doing this. I want to work doing this. That's it. I'm going to be seeing you down the road in the next three years. It's not even going to be the same world. I'm so excited and I'm scared. My kids are scared and go, no, don't worry about it. It's happened before. The car was invented and the phone. I didn't even think the phones were going to take off and look at how phones took off and everything. You just have to embrace it and roll with it. And I hate change, but I have to roll with it. So, yeah. Alrighty. Well, I will try to go. I have a few things. I'm going to, I think they talked about the wise. So I'll set up wise because you're a different country. Um, yeah, my wise is connected to chase or Wells Fargo.
+
+45:51 - Simo D (bottbottgenai@gmail.com)
+I can't, I can't do that, but you shouldn't be able to, I think with wise though, you should be able to just pay. I think there's an option to pay with your bank. So you just use Wise, but it just connects, essentially.
+
+46:03 - Gregg McElwee (bottbottgenai.com)
+I want to work with you.
+
+46:07 - Simo D (bottbottgenai@gmail.com)
+It's just, yeah, it's pretty simple. So once you have a Wise account, it's pretty easy to transfer, I'm pretty sure, because I get paid with other clients. Yeah, I started something happening that day, or I got distracted, and I didn't continue.
+
+46:21 - Gregg McElwee (bottbottgenai.com)
+Yeah, it's all good.
+
+46:23 - Simo D (bottbottgenai@gmail.com)
+Yeah, well, yeah, you can just, I think it's, you've already started an account.
+
+46:27 - Gregg McElwee (bottbottgenai.com)
+Thank you, thank thank you. And yeah, I got to find everything. My life, this is creating more chaos for me, but once I get this rolling, now you said, oh, more things. I have to start doing voices, and I was listening to another thing, and I got overwhelmed. go, no, you've got to do all this posting to Facebook and Instagram and LinkedIn with videos, like, every day. And I go, that's not me. I'm not going to do that. You go, well, if you would have become relevant. Look at how I look today. looks like . I had to get dressed up, nice suit and everything, and go out somewhere and talk about something and post it. Every day, I don't see myself doing that. And that's not me. I'm from a different point in life. I know that's how young people are making them. They're probably getting a lot of business off of it.
+
+47:24 - Simo D (bottbottgenai@gmail.com)
+Yeah, well, you got to do you, and we'll try to get this system tuned to how you want to operate. But you do need, the one thing is for certain is you need an authentic voice, which is why the voice notes will help for the content, right? And you've been in this business for almost 40 years, right? So you have experience and a wealth of knowledge that you can share, and no AI is ever going to be able to replicate that. So that's why we just need those, like, a little... A little bit from you on that, but everything else, I'm trying to make it as minimal a touch for you as possible. Yeah, it's kind of funny.
+
+48:11 - Gregg McElwee (bottbottgenai.com)
+One of my things I was paying for is saying how to keep snow off your porch and all that. I go, I live in Southern California. There's never snow here. Why are you putting this on my blog and making things look stupid? Stuff like that or how to de-ice your driveway or something. It's like you for the Bahamas or wherever you are. Yeah, so I don't use that company anymore, but I like the automatic blogs, but now you're saying I have to be something different. So I'll try to embrace it as long as I can here. Okay, sounds good.
+
+48:52 - Simo D (bottbottgenai@gmail.com)
+Yeah, my internet connection is being a little weird. All right.
+
+48:57 - Gregg McElwee (bottbottgenai.com)
+Well, you gave me a little project.
+
+49:01 - Simo D (bottbottgenai@gmail.com)
+Yeah, also again, I'll send you a recap with everything and update that sheet.
+
+49:05 - Gregg McElwee (bottbottgenai.com)
+You can have a look.
+
+49:06 - Simo D (bottbottgenai@gmail.com)
+Okay, thank you. And then we can figure out when we want to chat next. Okay.
+
+49:11 - Gregg McElwee (bottbottgenai.com)
+Sounds good. Thank you. All right. Bye.

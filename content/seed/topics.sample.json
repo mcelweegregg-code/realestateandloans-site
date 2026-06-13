@@ -1,0 +1,39 @@
+[
+  {
+    "order_index": 1,
+    "title": "Buying a Home in San Clemente: What to Expect in 2026",
+    "description": "A first-person walkthrough of what buyers should expect in San Clemente this year, from inventory to negotiating room.",
+    "primary_keyword": "buying a home in San Clemente",
+    "guiding_questions": [
+      "What surprises buyers most about San Clemente right now?",
+      "How is 2026 different from the last couple of years?",
+      "What's one thing you tell every buyer before their first offer?"
+    ],
+    "category": "buyer-seller"
+  },
+  {
+    "order_index": 2,
+    "title": "Selling a Probate Property in Orange County: What to Expect",
+    "description": "What executors and administrators need to know about timelines, court approval, and pricing when selling a probate property.",
+    "primary_keyword": "probate real estate Orange County",
+    "guiding_questions": [
+      "What do executors usually get wrong at the start?",
+      "How long does the court process really take?",
+      "What does a systematic probate mailing look like?",
+      "Any recent probate situation that stuck with you?"
+    ],
+    "category": "probate"
+  },
+  {
+    "order_index": 3,
+    "title": "Why Nobody Leaves San Clemente Once They Move Here",
+    "description": "A community piece on what makes San Clemente different from the other beach towns, from someone who moved here four years ago.",
+    "primary_keyword": "living in San Clemente",
+    "guiding_questions": [
+      "What made you move to San Clemente?",
+      "What do people not know about the town until they live here?",
+      "Where do you take out-of-town guests first?"
+    ],
+    "category": "community"
+  }
+]

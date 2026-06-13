@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Gregg McElwee, Real Estate and Loans">
+  <defs>
+    <linearGradient id="og" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#243861"/>
+      <stop offset="1" stop-color="#1b2a4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#og)"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#c8963e" stroke-width="2" opacity="0.5"/>
+  <text x="600" y="300" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="58" fill="#ffffff">Gregg McElwee</text>
+  <text x="600" y="372" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#c8963e">Real Estate &amp; Loans</text>
+  <text x="600" y="438" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="3" fill="#c6cede">SOUTH ORANGE COUNTY  ·  NEARLY 40 YEARS</text>
+</svg>

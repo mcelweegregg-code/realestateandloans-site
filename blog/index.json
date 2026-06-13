@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "slug": "selling-home-during-probate-orange-county",
+      "title": "Selling a Home During Probate in Orange County",
+      "date": "2026-05-28",
+      "description": "What executors and administrators need to know about selling a home during probate in Orange County, from court timelines to pricing it right.",
+      "image": "assets/images/blog-placeholder.svg",
+      "readMinutes": 1
+    },
+    {
+      "slug": "san-clemente-real-estate-market-2026",
+      "title": "San Clemente Real Estate Market 2026 Outlook",
+      "date": "2026-05-14",
+      "description": "Where prices, inventory, and buyer demand stand in the San Clemente real estate market in 2026, from an agent who lives and works on this coast.",
+      "image": null,
+      "readMinutes": 1
+    },
+    {
+      "slug": "choosing-real-estate-agent-south-oc",
+      "title": "How to Choose the Right Agent in South Orange County",
+      "date": "2026-04-30",
+      "description": "The questions worth asking before you choose a real estate agent in South Orange County, from someone who has watched this market for almost 40 years.",
+      "image": null,
+      "readMinutes": 1
+    }
+  ]
+}

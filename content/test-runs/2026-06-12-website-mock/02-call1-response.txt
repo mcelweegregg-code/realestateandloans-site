@@ -1,0 +1,66 @@
+PRIMARY KEYWORD: real estate agent website Orange County (natural in-sentence form: "real estate agent website in Orange County")
+SECONDARY KEYWORDS: web presence for real estate agents, outdated real estate website, agent marketing in South Orange County
+
+CHOSEN INTERNAL LINK A:
+- URL: https://realestateandloans.com/about
+- Anchor text suggestion: almost 40 years in this business
+- Placement rationale: The "What I Changed" section leans on Gregg's longevity, which is exactly what the About page documents.
+
+CHOSEN INTERNAL LINK B:
+- URL: https://greggmcelwee.com/reviews
+- Anchor text suggestion: what my clients say
+- Placement rationale: When Gregg explains the two-site split, pointing readers to client reviews on the personal site is the natural cross-link.
+
+OPENING HOOK: I've been selling homes in South Orange County for almost 40 years. It took me until this year to admit my website was working against me.
+
+PROPOSED H1: Why Your Real Estate Agent Website in Orange County Loses Deals
+
+SECTIONS:
+
+## The First Impression Happens Before You Ever Meet
+- Purpose: Reframe the website as the new first handshake so readers understand why this topic matters to them, not just to agents.
+- Key content: How clients used to find agents vs. now; nobody tells you when you've been silently passed over; the phone just doesn't ring.
+- Transcript anchor: Gregg seeing signs pop up "with names I don't even recognize" (recurring theme, reinforced in the static TOV profile: "I've lost deals because my website looked outdated. That's on me.")
+- Keyword placement: Primary keyword in the intro paragraph just before this section; this section uses "web presence" secondary.
+- Dynamic TOV to use: "The whole key of real estate is getting back to people quickly."
+
+## My Old Website Was Burning Money
+- Purpose: Gregg's honest first-person account of paying for a site that produced nothing. Builds trust through candor.
+- Key content: Monthly spend with nothing to show; the old site had next to no search value (qualitative only; the specific audit score was stated by another speaker, so per the anti-fabrication rule it cannot appear as a figure); wanting off the old provider.
+- Transcript anchor: "Websites don't generate money for me. I'm burning through money. But I don't like my other website... I can't wait to get rid of it."
+- Keyword placement: none forced here; "outdated real estate website" secondary fits.
+- Dynamic TOV to use: "I'm burning through money" / "I can't wait to get rid of it."
+
+## Blog Posts About Snow in Southern California
+- Purpose: The anecdote section. Generic auto-content signals neglect to both people and Google.
+- Key content: The snow-off-your-porch blog post story; what generic content tells clients; Google reads it the same way.
+- Transcript anchor: "One of my things I was paying for is saying how to keep snow off your porch... I live in Southern California. There's never snow here. Why are you putting this on my blog and making things look stupid?"
+- Keyword placement: Primary keyword once, in the closing thought of the section ("a real estate agent website in Orange County should sound like somebody who works this coast").
+- Dynamic TOV to use: The snow reference is the centerpiece. Dry humor, used once, per the TOV profile.
+
+## What Most Agents Get Wrong Online
+- Purpose: Answers guiding question 2 with Gregg's peer-level honesty, including his own mistake.
+- Key content: Set-and-forget packages; unmeasurable monthly fees; chasing every platform instead of being real on a couple.
+- Transcript anchor: "Everybody's got their hand in my pocket" (TOV profile); "That's not me. I'm from a different point in life" on daily video posting.
+- Keyword placement: Primary keyword once ("what passes for a real estate agent website in Orange County").
+- Dynamic TOV to use: "I'm so old school" energy; the opinion that daily-everywhere posting is not him.
+
+## What I Changed and Why It Matters to You
+- Purpose: Turns the story toward the reader: an agent's marketing discipline predicts how they'll market your home.
+- Key content: The two-site rebuild; content written from his own voice; both internal links live here; the "shop window" argument for buyers and sellers.
+- Transcript anchor: The two-site strategy discussion (content site vs. personal site); "It's out of my comfort zone, but let's do it."
+- Keyword placement: secondary keywords; primary saved for conclusion.
+- Dynamic TOV to use: "let's run with it."
+
+CONCLUSION SECTION:
+- H2 heading: Ask Gregg What a Real Estate Agent Website in Orange County Should Do
+- Purpose: Move the reader to evaluate agents (including Gregg) by their online attention to detail, then call.
+- CTA direction: Read a few posts on this site, then call 949.448.0961. Direct, no pressure.
+- Voice: First person ("I'm not in it for the quick flip...")
+
+SEO METADATA PLAN:
+- Meta title: Real Estate Agent Website Mistakes in Orange County
+- Meta description: An outdated real estate agent website in Orange County tells clients the wrong story. Gregg McElwee on what his old site cost him and what he changed.
+- URL slug: real-estate-agent-website-orange-county
+
+WORD COUNT TARGET: 900-1,100 words

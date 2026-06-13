@@ -1,0 +1,65 @@
+I've been selling homes in South Orange County for almost 40 years. It took me until this year to admit my website was working against me.
+
+# Why Your Real Estate Agent Website in Orange County Loses Deals
+
+I see signs pop up on streets I've worked for decades, with names I don't even recognize. Some of those deals should have been mine.
+
+Before anyone calls an agent, they look you up. A real estate agent website in Orange County is usually that first look, and mine was telling people the wrong story.
+
+## The First Impression Happens Before You Ever Meet
+
+For most of my career, the first impression was a handshake. Maybe a sign in the yard, maybe a flyer at an open house. That world is gone.
+
+Now somebody hears your name from a neighbor, pulls out their phone, and decides in about ten seconds whether to call you. Nobody calls to tell you they passed. The phone just doesn't ring, and you never know why.
+
+I've lost deals because my website looked outdated. That's on me. The whole key of real estate is getting back to people quickly, and I never even got the chance.
+
+Say a family is settling an estate and a neighbor gives them my name. The first thing they do is search it. If what comes up looks ten years old, they keep scrolling, and they never learn I've spent a good part of four decades on exactly the kind of sale they're facing.
+
+## My Old Website Was Burning Money
+
+I was spending real money on my old site, every single month. Websites don't generate money by themselves, and mine wasn't even trying. I was burning through money, and I couldn't wait to get rid of it.
+
+When we finally took a hard look at that site, it had next to no search value. Practically invisible. Years of monthly payments for something nobody could find.
+
+I kept paying because checking felt like one more thing on my plate. I'm being honest when I say I get distracted. The months rolled by, the invoices kept coming, and nothing changed.
+
+If you're an agent reading this, go check what you're paying for. If you're a client, stay with me, because this matters to you too.
+
+## Blog Posts About Snow in Southern California
+
+One service I used to pay for posted blogs to my site automatically. One week the post was about how to keep snow off your porch. I live in Southern California. There's never snow here.
+
+That's what generic content does. It tells people you're not paying attention to your own shop window. Google reads it the same way and ranks you accordingly.
+
+A real estate agent website in Orange County should sound like somebody who actually works this coast. The right details are hard to fake, and the wrong ones give you away fast.
+
+## What Most Agents Get Wrong Online
+
+Most agents I know treat their web presence one of two ways. They ignore it completely, or they buy a package, set it, and forget it. I did the second one for years.
+
+Everybody's got their hand in my pocket. That's how paying monthly fees for marketing you can't measure feels. I understand why agents stop looking at their own sites. I stopped too.
+
+The other mistake is chasing every platform at once. People kept telling me I need to post videos every day. That's not me. I'm from a different point in life. I'd rather show up real in two places than fake it in six.
+
+I've seen what passes for a real estate agent website in Orange County. Stock skyline photos from cities that aren't ours, and blog posts written for somewhere with snow.
+
+I'm old school about most things, and I'm not ashamed of that. Phone calls and relationships still win business in my model. But old school can't mean invisible, and that took me too long to accept.
+
+## What I Changed and Why It Matters to You
+
+I rebuilt from scratch this year. One site for guides and market insight, which is the one you're reading now. My personal site holds [what my clients say](https://greggmcelwee.com/reviews) and the community pages, so nothing gets repeated for the sake of filling space.
+
+Every post here starts with my own voice and my own experience. I talk through a topic the way I'd explain it across a kitchen table, and that becomes the post. After [almost 40 years in this business](https://realestateandloans.com/about), I have plenty to say without borrowing anybody's content.
+
+Honestly, this part was out of my comfort zone. I'm not a tech guy, and I've watched plenty of agents my age decide the internet isn't their problem. I'd rather learn the tool than pretend the world isn't changing.
+
+This matters if you're buying or selling, too. The way an agent presents themselves online is the way they'll present your house. If I let my own marketing slide, you'd be right to wonder what else slides.
+
+## Ask Gregg What a Real Estate Agent Website in Orange County Should Do
+
+I'm not in it for the quick flip. I rebuilt my web presence because I plan to keep working this coast for years, and I want the next family who looks me up to see who I actually am.
+
+A good real estate agent website in Orange County should tell you who the agent really is. If everything you find feels generic, ask yourself what else got the generic treatment.
+
+If you're thinking about buying or selling down here, look around this site. Read a few posts and see if the way I talk about this business makes sense to you. Then give me a call at 949.448.0961. I pick up.

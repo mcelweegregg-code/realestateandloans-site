@@ -1,0 +1,12 @@
+CRAFT AUDIT:
+- Word count: 906 words
+- Primary keyword count: 4 instances (natural form "real estate agent website in Orange County")
+- Em dashes found and removed: 1 ("burning through money — and I couldn't wait")
+- AI-tell phrases removed: ["navigate" in "trying to navigate this market" → "in this market"]
+- Narrative hook openers removed: 3 ("Here's the part that stings" → deleted, "Here's why you should care as a buyer or seller" → "This matters if you're buying or selling, too", "Here's what I changed" in Facebook draft → "So I changed it")
+- Parallel constructions rewritten: none found
+- Paragraphs split: 1 (the "kept paying" paragraph in My Old Website Was Burning Money ran 4 sentences)
+- Single-sentence paragraphs merged: 0
+- Internal links verified: [A: https://realestateandloans.com/about | B: https://greggmcelwee.com/reviews]
+- Fabrication issues found: 1 — the draft cited a specific audit score (13 out of 100) that was stated by another meeting participant, not by Gregg. Removed and reframed qualitatively ("next to no search value") per anti-fabrication rule 30.
+- Remaining concerns: The guiding question about a specific lost-deal story got no concrete anecdote in this recording, so the post leans on the TOV profile's "I've lost deals because my website looked outdated" framing rather than a named example.

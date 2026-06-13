@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800" role="img" aria-label="Gregg McElwee portrait placeholder">
+  <rect width="600" height="800" fill="#243861"/>
+  <circle cx="300" cy="310" r="120" fill="#c8963e" opacity="0.22"/>
+  <path d="M150 720 Q 300 540 450 720 Z" fill="#c8963e" opacity="0.18"/>
+  <text x="300" y="430" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#ffffff">Gregg McElwee</text>
+  <text x="300" y="468" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" letter-spacing="2" fill="#c8963e">PORTRAIT PLACEHOLDER</text>
+</svg>

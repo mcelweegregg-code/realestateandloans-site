@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-label="Article image placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#243861"/>
+      <stop offset="1" stop-color="#1b2a4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <circle cx="660" cy="120" r="48" fill="#c8963e" opacity="0.28"/>
+  <path d="M0 350 Q 200 330 400 348 T 800 342 V450 H0 Z" fill="#c8963e" opacity="0.10"/>
+  <text x="400" y="232" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#ffffff">Real Estate &amp; Loans</text>
+  <text x="400" y="266" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="#c8963e">SOUTH ORANGE COUNTY INSIGHTS</text>
+</svg>
