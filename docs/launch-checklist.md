@@ -53,10 +53,13 @@ Set every variable from `.env.example` in the Vercel project (and locally in
   sender domain.
 - [ ] **Twilio:** `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`,
   `TWILIO_WHATSAPP_FROM`, and `GREGG_WHATSAPP_NUMBER` (**pending from Simo**).
-- [ ] **Apps Script (social log):** deploy `apps-script/social-log-handler.gs`
-  as its **own** project (separate from the contact-form handler — one
-  `doPost` per web app). Set its `WEBHOOK_SECRET` script property; put the same
-  value in `SHEETS_WEBHOOK_SECRET` and the deployment URL in `SHEETS_WEBHOOK_URL`.
+- [ ] **Google Sheets API (social log):** create a GCP service account, generate
+  a JSON key, and enable the Sheets API on that project. Share the target
+  spreadsheet (Gregg's "realestateandloans.com" sheet) with the service
+  account's email as **Editor**. Put the spreadsheet ID in
+  `GOOGLE_SHEETS_SPREADSHEET_ID` and the full JSON key (single-line string) in
+  `GOOGLE_SERVICE_ACCOUNT_KEY`. The "Social Posts" tab, its header row, and the
+  F/G checkbox columns are already set up — no sheet structure work needed.
 - [ ] **Cron:** `CRON_SECRET` (Vercel sends it as a Bearer token to the cron
   endpoints).
 - [ ] **Verification:** leave `VERIFY_BASE_URL` empty until DNS cutover, then
