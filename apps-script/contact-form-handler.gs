@@ -74,22 +74,13 @@ function doGet(e) {
  */
 function doPost(e) {
   try {
-    /* --- 1. Parse the incoming JSON payload ----------------- */
-    if (!e || !e.postData || !e.postData.contents) {
-      return jsonResponse({
-        result: 'error',
-        message: 'Something went wrong. Please call 949.448.0961 directly.'
-      });
-    }
-
-    var data = JSON.parse(e.postData.contents);
-
-    var name = (data.name || '').toString().trim();
-    var email = (data.email || '').toString().trim();
-    var phone = (data.phone || '').toString().trim();
-    var category = (data.category || '').toString().trim();
-    var message = (data.message || '').toString().trim();
-    var timestamp = (data.timestamp || '').toString().trim();
+    /* --- 1. Read the submitted form fields ------------------ */
+    var name = (e.parameter.name || '').toString().trim();
+    var email = (e.parameter.email || '').toString().trim();
+    var phone = (e.parameter.phone || '').toString().trim();
+    var category = (e.parameter.category || '').toString().trim();
+    var message = (e.parameter.message || '').toString().trim();
+    var timestamp = (e.parameter.timestamp || '').toString().trim();
 
     /* --- 2. Validate required fields ------------------------ */
     if (!name || !email || !message || !category) {

@@ -391,12 +391,19 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      // text/plain keeps the request "simple" so Apps Script answers without
-      // a CORS preflight; the body itself is still JSON.
+      // FormData keeps the request "simple" so Apps Script answers without
+      // a CORS preflight; fields arrive as e.parameter on the server.
+      var formData = new FormData();
+      formData.append('name', payload.name);
+      formData.append('email', payload.email);
+      formData.append('phone', payload.phone);
+      formData.append('category', payload.category);
+      formData.append('message', payload.message);
+      formData.append('timestamp', payload.timestamp);
+
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
+        body: formData
       })
         .then(function (res) {
           return res.json();
