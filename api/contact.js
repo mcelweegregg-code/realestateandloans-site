@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     }
 
     // --- Google Sheets ---
-    const keyJson = JSON.parse(process.env.CONTACT_FORM_SERVICE_ACCOUNT_KEY);
+    const keyJson = JSON.parse(Buffer.from(process.env.CONTACT_FORM_SERVICE_ACCOUNT_KEY, 'base64').toString('utf8'));
     const auth = new google.auth.GoogleAuth({
       credentials: keyJson,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
