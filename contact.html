@@ -127,53 +127,14 @@
           <div>
             <h2>Send a message</h2>
 
-            <form class="form" id="contactForm" novalidate>
-              <div class="field">
-                <label for="name">Full name <span class="req">*</span></label>
-                <input class="input" type="text" id="name" name="name" required autocomplete="name">
-                <span class="field-error" id="name-error" hidden></span>
-              </div>
-
-              <div class="field">
-                <label for="email">Email <span class="req">*</span></label>
-                <input class="input" type="email" id="email" name="email" required autocomplete="email">
-                <span class="field-error" id="email-error" hidden></span>
-              </div>
-
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input class="input" type="tel" id="phone" name="phone" autocomplete="tel">
-              </div>
-
-              <div class="field">
-                <label for="category">What can I help with? <span class="req">*</span></label>
-                <select class="select" id="category" name="category" required>
-                  <option value="" disabled selected>Select a topic</option>
-                  <option value="Buying">Buying</option>
-                  <option value="Selling">Selling</option>
-                  <option value="Probate / Estate">Probate / Estate</option>
-                  <option value="Divorce Real Estate">Divorce Real Estate</option>
-                  <option value="Refinance">Refinance</option>
-                  <option value="General Question">General Question</option>
-                </select>
-                <span class="field-error" id="category-error" hidden></span>
-              </div>
-
-              <div class="field">
-                <label for="message">Message <span class="req">*</span></label>
-                <textarea class="textarea" id="message" name="message" rows="5" required></textarea>
-                <span class="field-error" id="message-error" hidden></span>
-              </div>
-
-              <!-- Honeypot: visually hidden via .hp-field (off-screen positioning,
-                   not display:none). No label, aria-hidden, never seen by humans. -->
-              <input class="hp-field" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-              <div>
-                <button type="submit" class="btn btn--primary" id="submit-btn">Send Message</button>
-                <p class="form-status form-status--error" id="form-error" role="alert" hidden>Something went wrong. Please call 949.448.0961 directly.</p>
-              </div>
-            </form>
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSf5DISGteUmCEd6T-VoN9I711Ot2C3It-d2gR5DZzxET0A_bQ/viewform?embedded=true"
+              width="100%"
+              height="1160"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0">Loading…
+            </iframe>
 
             <div class="form-status form-status--success" id="form-success" role="status" tabindex="-1" hidden>
               Thanks, Gregg will be in touch shortly.
@@ -279,144 +240,5 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-
-  <!-- Contact form handler. Uses a dedicated form id (contactForm) so the
-       shared main.js #contact-form block does not also bind to it; this
-       page requires JS validation + JSON submission, not the shared
-       native-validation + FormData path. -->
-  <script>
-  (function () {
-    'use strict';
-
-    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxajaapKDtD8eexRjyIQ3NMaTz9uHIoTpNh0QbYkNg51Y40TYQEpI7d2kyKym1RSS9D/exec';
-
-    var form = document.getElementById('contactForm');
-    if (!form) return;
-
-    var submitBtn = document.getElementById('submit-btn');
-    var formError = document.getElementById('form-error');
-    var formSuccess = document.getElementById('form-success');
-    var honeypot = document.getElementById('website');
-
-    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    var fields = {
-      name: {
-        el: document.getElementById('name'),
-        err: document.getElementById('name-error')
-      },
-      email: {
-        el: document.getElementById('email'),
-        err: document.getElementById('email-error')
-      },
-      category: {
-        el: document.getElementById('category'),
-        err: document.getElementById('category-error')
-      },
-      message: {
-        el: document.getElementById('message'),
-        err: document.getElementById('message-error')
-      }
-    };
-
-    function showError(field, message) {
-      field.err.textContent = message;
-      field.err.hidden = false;
-      field.el.setAttribute('aria-invalid', 'true');
-    }
-
-    function clearError(field) {
-      field.err.textContent = '';
-      field.err.hidden = true;
-      field.el.removeAttribute('aria-invalid');
-    }
-
-    function validate() {
-      var ok = true;
-
-      if (!fields.name.el.value.trim()) {
-        showError(fields.name, 'Please enter your name.');
-        ok = false;
-      } else {
-        clearError(fields.name);
-      }
-
-      var emailVal = fields.email.el.value.trim();
-      if (!emailVal) {
-        showError(fields.email, 'Please enter your email address.');
-        ok = false;
-      } else if (!emailRe.test(emailVal)) {
-        showError(fields.email, 'Please enter a valid email address.');
-        ok = false;
-      } else {
-        clearError(fields.email);
-      }
-
-      if (!fields.category.el.value) {
-        showError(fields.category, 'Please choose a topic.');
-        ok = false;
-      } else {
-        clearError(fields.category);
-      }
-
-      if (!fields.message.el.value.trim()) {
-        showError(fields.message, 'Please enter a message.');
-        ok = false;
-      } else {
-        clearError(fields.message);
-      }
-
-      return ok;
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      formError.hidden = true;
-
-      // Honeypot: if a bot filled the hidden field, silently abort.
-      if (honeypot && honeypot.value) return;
-
-      if (!validate()) return;
-
-      var payload = {
-        name: fields.name.el.value.trim(),
-        email: fields.email.el.value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        category: fields.category.el.value,
-        message: fields.message.el.value.trim(),
-        timestamp: new Date().toISOString()
-      };
-
-      var originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      // text/plain keeps the request "simple" so Apps Script answers without
-      // a CORS preflight; the body itself is still JSON.
-      fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (data) {
-          if (data && data.result === 'success') {
-            form.hidden = true;
-            formSuccess.hidden = false;
-            formSuccess.focus();
-          } else {
-            throw new Error('Unexpected response');
-          }
-        })
-        .catch(function () {
-          formError.hidden = false;
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        });
-    });
-  })();
-  </script>
 </body>
 </html>
