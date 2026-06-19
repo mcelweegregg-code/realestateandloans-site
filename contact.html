@@ -288,7 +288,7 @@
   (function () {
     'use strict';
 
-    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxajaapKDtD8eexRjyIQ3NMaTz9uHIoTpNh0QbYkNg51Y40TYQEpI7d2kyKym1RSS9D/exec';
+    var APPS_SCRIPT_URL = '/api/contact';
 
     var form = document.getElementById('contactForm');
     if (!form) return;
@@ -391,19 +391,10 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      // FormData keeps the request "simple" so Apps Script answers without
-      // a CORS preflight; fields arrive as e.parameter on the server.
-      var formData = new FormData();
-      formData.append('name', payload.name);
-      formData.append('email', payload.email);
-      formData.append('phone', payload.phone);
-      formData.append('category', payload.category);
-      formData.append('message', payload.message);
-      formData.append('timestamp', payload.timestamp);
-
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       })
         .then(function (res) {
           return res.json();
