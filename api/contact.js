@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
       from: 'Contact Form <noreply@realestateandloans.com>',
-      to: 'Gregg@realestateandloans.com',
+      to: process.env.CONTACT_NOTIFY_TO,
       subject: `New contact form submission: ${category} from ${name}`,
       text: `You have a new contact form submission.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nCategory: ${category}\nMessage:\n${message}\n\nSubmitted: ${timestamp}`,
       replyTo: email,
