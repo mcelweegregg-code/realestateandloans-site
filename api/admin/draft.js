@@ -8,6 +8,7 @@ import { sendJson, readJsonBody } from '../../lib/http.js';
 import { getSupabaseClient } from '../../lib/supabase.js';
 import { runGeneration } from '../../lib/generation/engine.js';
 import { createAnthropicClient } from '../../lib/generation/anthropic.js';
+import { selectUnusedImage, markImageUsed } from '../../lib/images.js';
 
 export default async function handler(req, res) {
   const session = requireRole(req, res, ['editor']);
@@ -64,6 +65,14 @@ export default async function handler(req, res) {
       JSON.stringify(result.lint, null, 2),
     ].join('\n');
 
+    // Loosely link an image by category (best-effort; never blocks the draft).
+    let image = null;
+    try {
+      image = await selectUnusedImage(supabase, topic.category);
+    } catch (imgErr) {
+      console.error(`image selection failed for topic ${topicId}: ${imgErr.message}`);
+    }
+
     const { post, social } = result.package;
     const { data: saved, error: saveError } = await supabase.from('posts').insert({
       topic_id: topicId,
@@ -80,10 +89,19 @@ export default async function handler(req, res) {
       rag_fallback: false,
       social_linkedin: social.linkedin,
       social_facebook: social.facebook,
+      image_used: image?.filename ?? null,
       craft_audit: craftAudit,
       status: 'pending_review',
     }).select('id').single();
     if (saveError) return sendJson(res, 500, { error: `draft save failed: ${saveError.message}` });
+
+    if (image) {
+      try {
+        await markImageUsed(supabase, image.id, saved.id);
+      } catch (imgErr) {
+        console.error(`marking image used failed for post ${saved.id}: ${imgErr.message}`);
+      }
+    }
 
     return sendJson(res, 200, { ok: true, post_id: saved.id, lint: result.lint });
   } catch (err) {

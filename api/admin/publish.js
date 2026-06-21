@@ -6,6 +6,8 @@
 import { requireRole } from '../../lib/admin-auth.js';
 import { sendJson, readJsonBody } from '../../lib/http.js';
 import { getPostById, updatePost, markTopicPublished } from '../../lib/admin-data.js';
+import { getSupabaseClient } from '../../lib/supabase.js';
+import { getImageAltByFilename } from '../../lib/images.js';
 
 const EDITABLE_FIELDS = [
   'title', 'meta_title', 'meta_description', 'body_md',
@@ -57,9 +59,21 @@ export default async function handler(req, res) {
       social: { linkedin: post.social_linkedin, facebook: post.social_facebook },
     };
 
+    // Carry the image chosen at generation time through to the rendered page.
+    // image_used holds the site-root-relative path; alt_text comes from images.
+    const imageFilename = post.image_used ?? null;
+    let imageAlt = '';
+    if (imageFilename) {
+      try {
+        imageAlt = await getImageAltByFilename(getSupabaseClient(), imageFilename);
+      } catch (imgErr) {
+        console.error(`image alt lookup failed for post ${postId}: ${imgErr.message}`);
+      }
+    }
+
     const { publishPost } = await import('../../lib/publish.js');
     const date = new Date().toISOString().slice(0, 10);
-    const result = await publishPost({ pkg, date, existingPostId: postId });
+    const result = await publishPost({ pkg, date, existingPostId: postId, imageFilename, imageAlt });
 
     await updatePost(postId, { status: 'published', published_at: new Date().toISOString() });
     if (post.topic_id) await markTopicPublished(post.topic_id);
