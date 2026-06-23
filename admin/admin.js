@@ -53,7 +53,15 @@ function renderGregg(state) {
 async function startRecording() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   recorder.chunks = [];
-  recorder.mediaRecorder = new MediaRecorder(stream);
+  const mimeTypes = [
+    'audio/webm;codecs=opus',
+    'audio/ogg;codecs=opus',
+    'audio/mp4',
+  ];
+  const mimeType = mimeTypes.find(t => MediaRecorder.isTypeSupported(t)) || '';
+  const options = { audioBitsPerSecond: 64000 };
+  if (mimeType) options.mimeType = mimeType;
+  recorder.mediaRecorder = new MediaRecorder(stream, options);
   recorder.mediaRecorder.ondataavailable = (e) => { if (e.data.size) recorder.chunks.push(e.data); };
   recorder.mediaRecorder.onstop = () => {
     stream.getTracks().forEach((t) => t.stop());
