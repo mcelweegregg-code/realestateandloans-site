@@ -666,6 +666,10 @@ a.card:hover {
 .article__body h3 {
   margin-top: var(--gap-standard);
 }
+/* Generated markdown sometimes emits --- between sections; suppress the <hr>. */
+.article__body hr {
+  display: none;
+}
 
 /* Pull-quote callout (gold accent) */
 .pullquote {
