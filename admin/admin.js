@@ -157,6 +157,7 @@ function updateToggleDesc(on) {
 function buildPostEditor(post) {
   const el = document.createElement('div');
   el.className = 'post-editor';
+  const postUrl = `https://realestateandloans.com/blog/${post.slug}`;
   const lintWarn = post.craft_audit && /FAIL/.test(post.craft_audit)
     ? '<div class="lint-warn">Lint flagged issues in this draft. Review the body before publishing.</div>' : '';
   el.innerHTML = `
@@ -190,8 +191,16 @@ function buildPostEditor(post) {
       <textarea class="social" data-f="social_linkedin">${escapeHtml(post.social_linkedin || '')}</textarea>
     </div>
     <div class="field">
+      <label>Paste in comments</label>
+      <input class="copy-url" type="text" readonly value="${escapeHtml(postUrl)}" onclick="this.select()">
+    </div>
+    <div class="field">
       <label>Facebook draft</label>
       <textarea class="social" data-f="social_facebook">${escapeHtml(post.social_facebook || '')}</textarea>
+    </div>
+    <div class="field">
+      <label>Paste in comments</label>
+      <input class="copy-url" type="text" readonly value="${escapeHtml(postUrl)}" onclick="this.select()">
     </div>
     <button class="btn btn--primary" data-action="publish">Publish</button>
     <span class="publish-msg meta"></span>
