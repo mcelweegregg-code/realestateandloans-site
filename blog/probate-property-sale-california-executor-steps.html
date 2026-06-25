@@ -177,46 +177,10 @@
     </section>
 
     <!-- ======================= Related posts ========================= -->
-    <section class="section section--gray">
+    <section class="section section--gray" id="related-posts">
       <div class="container">
         <h2 class="center" style="margin-bottom:var(--gap-loose);">More from the blog</h2>
-        <div class="grid grid--3">
-          <article class="card">
-            <a href="selling-home-during-probate-orange-county.html">
-              <img class="card__media" src="../assets/images/blog-placeholder.svg" alt="" width="800" height="450" loading="lazy">
-            </a>
-            <div class="card__body">
-              <p class="meta">May 28, 2026 &middot; 1 min read</p>
-              <h2 class="card__title">Selling a Home During Probate in Orange County</h2>
-              <p class="card__text">What executors and administrators need to know about selling a home during probate in Orange County, from court timelines to pricing it right.</p>
-              <a class="card__link" href="selling-home-during-probate-orange-county.html">Read more &rarr;</a>
-            </div>
-          </article>
-
-          <article class="card">
-            <a href="san-clemente-real-estate-market-2026.html">
-              <img class="card__media" src="../assets/images/blog-placeholder.svg" alt="" width="800" height="450" loading="lazy">
-            </a>
-            <div class="card__body">
-              <p class="meta">May 14, 2026 &middot; 1 min read</p>
-              <h2 class="card__title">San Clemente Real Estate Market 2026 Outlook</h2>
-              <p class="card__text">Where prices, inventory, and buyer demand stand in the San Clemente real estate market in 2026, from an agent who lives and works on this coast.</p>
-              <a class="card__link" href="san-clemente-real-estate-market-2026.html">Read more &rarr;</a>
-            </div>
-          </article>
-
-          <article class="card">
-            <a href="choosing-real-estate-agent-south-oc.html">
-              <img class="card__media" src="../assets/images/blog-placeholder.svg" alt="" width="800" height="450" loading="lazy">
-            </a>
-            <div class="card__body">
-              <p class="meta">April 30, 2026 &middot; 1 min read</p>
-              <h2 class="card__title">How to Choose the Right Agent in South Orange County</h2>
-              <p class="card__text">The questions worth asking before you choose a real estate agent in South Orange County, from someone who has watched this market for almost 40 years.</p>
-              <a class="card__link" href="choosing-real-estate-agent-south-oc.html">Read more &rarr;</a>
-            </div>
-          </article>
-        </div>
+        <div class="grid grid--3" id="related-grid"></div>
       </div>
     </section>
 
@@ -272,5 +236,49 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
+
+  <script>
+    // Render related posts from /blog/index.json, excluding the current post.
+    // Hide the whole section if there are no other posts to show.
+    (function () {
+      var section = document.getElementById('related-posts');
+      var grid = document.getElementById('related-grid');
+      if (!section || !grid) return;
+      var path = location.pathname.replace(/\/+$/, '');
+      var currentSlug = path.split('/').pop().replace(/\.html$/, '');
+      var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      function formatDate(iso) {
+        var p = String(iso).split('-'), y = p[0], m = parseInt(p[1], 10), d = parseInt(p[2], 10);
+        return (m && d && y) ? MONTHS[m - 1] + ' ' + d + ', ' + y : String(iso);
+      }
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      fetch('/blog/index.json')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          var posts = ((data && data.posts) || []).filter(function (p) { return p.slug !== currentSlug; }).slice(0, 3);
+          if (posts.length < 1) { section.style.display = 'none'; return; }
+          grid.innerHTML = posts.map(function (post) {
+            var href = '/blog/' + post.slug + '.html';
+            var img = post.image ? ('../' + post.image) : '../assets/images/blog-placeholder.svg';
+            var meta = formatDate(post.date);
+            if (post.readMinutes != null) meta += ' &middot; ' + post.readMinutes + ' min read';
+            return '<article class="card">' +
+                '<a href="' + esc(href) + '">' +
+                  '<img class="card__media" src="' + esc(img) + '" alt="" width="800" height="450" loading="lazy">' +
+                '</a>' +
+                '<div class="card__body">' +
+                  '<p class="meta">' + meta + '</p>' +
+                  '<h2 class="card__title">' + esc(post.title) + '</h2>' +
+                  '<p class="card__text">' + esc(post.description) + '</p>' +
+                  '<a class="card__link" href="' + esc(href) + '">Read more &rarr;</a>' +
+                '</div>' +
+              '</article>';
+          }).join('');
+        })
+        .catch(function (err) { console.error('Failed to load related posts:', err); section.style.display = 'none'; });
+    })();
+  </script>
 </body>
 </html>
