@@ -1,6 +1,6 @@
 // Admin dashboard client. Talks to /api/admin/* and /api/auth/*.
-// Role-driven: Gregg sees only the Record view; the editor sees both tabs.
-// No build step, no framework, matches the rest of the site.
+// Both whitelisted accounts map to the editor role and get all three tabs:
+// Record, Review, Add Content. No build step, no framework, matches the site.
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -240,8 +240,192 @@ function buildPostEditor(post) {
   return el;
 }
 
+// ----------------------------------------------------- Upcoming topics queue
+
+async function loadUpcomingTopics() {
+  const host = $('#upcoming-topics');
+  try {
+    const { topics } = await api('/api/admin/topics?status=upcoming');
+    host.innerHTML = topics.length ? `
+      <table class="upcoming-table">
+        <thead><tr><th>Topic Title</th><th>Scheduled Date</th><th>Status</th></tr></thead>
+        <tbody>${topics.map((t) => `
+          <tr><td>${escapeHtml(t.title)}</td><td>${fmtDate(t.scheduled_date)}</td><td>${escapeHtml(t.status)}</td></tr>`).join('')}
+        </tbody>
+      </table>` : '<p class="meta">No upcoming topics.</p>';
+  } catch (err) {
+    host.innerHTML = `<p class="err">${escapeHtml(err.message)}</p>`;
+  }
+}
+
+// --------------------------------------------------------- Add Content view
+
+// A preview card for a generated/extracted topic, with Save and Discard.
+// onActed() fires after the card leaves the DOM (saved or discarded).
+function buildTopicCard(topic, onActed) {
+  const el = document.createElement('div');
+  el.className = 'topic-card';
+  el.innerHTML = `
+    ${topic.category ? `<span class="cat">${escapeHtml(topic.category)}</span><br>` : ''}
+    <h4>${escapeHtml(topic.title)}</h4>
+    <p>${escapeHtml(topic.description || '')}</p>
+    <p class="kw">Main keyword: ${escapeHtml(topic.main_keyword || '')}</p>
+    <ul>${(topic.guiding_questions || []).map((q) => `<li>${escapeHtml(q)}</li>`).join('')}</ul>
+    <div class="card-actions">
+      <button class="btn btn--primary" data-act="save">Save</button>
+      <button class="btn" data-act="discard">Discard</button>
+    </div>
+    <span class="card-msg meta"></span>`;
+
+  const msg = el.querySelector('.card-msg');
+  el.querySelector('[data-act="discard"]').addEventListener('click', () => { el.remove(); onActed?.(); });
+  el.querySelector('[data-act="save"]').addEventListener('click', async (e) => {
+    const saveBtn = e.target;
+    saveBtn.disabled = true; msg.textContent = 'Saving…'; msg.className = 'card-msg meta';
+    try {
+      await api('/api/admin/topics', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: topic.title,
+          description: topic.description,
+          category: topic.category,
+          main_keyword: topic.main_keyword,
+          guiding_questions: topic.guiding_questions,
+        }),
+      });
+      el.remove(); onActed?.();
+    } catch (err) {
+      msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
+      saveBtn.disabled = false;
+    }
+  });
+  return el;
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function wireAddContent() {
+  // ---- Section A: Generate Topics (AI) ----
+  const genBtn = $('#gen-topics-btn');
+  const moreBtn = $('#gen-more-btn');
+  const genMsg = $('#gen-topics-msg');
+  const genResults = $('#gen-topics-results');
+
+  async function generateTopics(btn) {
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Generating…';
+    genMsg.textContent = ''; moreBtn.classList.add('hidden');
+    try {
+      const { topics } = await api('/api/admin/topics/generate', { method: 'POST', body: '{}' });
+      genResults.innerHTML = '';
+      const onActed = () => {
+        // Once every card has been saved or discarded, offer another batch.
+        if (!genResults.querySelector('.topic-card')) moreBtn.classList.remove('hidden');
+      };
+      topics.forEach((t) => genResults.appendChild(buildTopicCard(t, onActed)));
+    } catch (err) {
+      genMsg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  }
+  genBtn.addEventListener('click', () => generateTopics(genBtn));
+  moreBtn.addEventListener('click', () => generateTopics(moreBtn));
+
+  // ---- Section B: Bulk Upload ----
+  $('#bulk-btn').addEventListener('click', async () => {
+    const file = $('#bulk-file').files[0];
+    const msg = $('#bulk-msg');
+    const results = $('#bulk-results');
+    if (!file) { msg.innerHTML = '<span class="err">Choose a .md or .pdf file first.</span>'; return; }
+    const btn = $('#bulk-btn');
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Reading file…'; msg.textContent = ''; results.innerHTML = '';
+    try {
+      const data_base64 = await fileToBase64(file);
+      const { topics } = await api('/api/admin/topics/bulk-upload', {
+        method: 'POST',
+        body: JSON.stringify({ filename: file.name, mime: file.type, data_base64 }),
+      });
+      if (!topics.length) { msg.textContent = 'No topics found in that file.'; return; }
+      topics.forEach((t) => results.appendChild(buildTopicCard(t)));
+    } catch (err) {
+      msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  });
+
+  // ---- Section C: Manual Entry ----
+  $('#manual-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const msg = $('#manual-msg');
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; msg.textContent = 'Saving…'; msg.className = 'meta';
+    const fd = new FormData(form);
+    try {
+      await api('/api/admin/topics', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: fd.get('title'),
+          description: fd.get('description'),
+          category: fd.get('category'),
+          main_keyword: fd.get('main_keyword'),
+          guiding_questions: fd.get('guiding_questions'), // newline-delimited; server splits
+          scheduled_date: fd.get('scheduled_date'),
+        }),
+      });
+      msg.innerHTML = '<span class="ok">Topic saved.</span>';
+      form.reset();
+    } catch (err) {
+      msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // ---- Section D: Image Upload ----
+  $('#img-btn').addEventListener('click', async () => {
+    const file = $('#img-file').files[0];
+    const alt = $('#img-alt').value.trim();
+    const msg = $('#img-msg');
+    if (!file) { msg.innerHTML = '<span class="err">Choose an image first.</span>'; return; }
+    if (!alt) { msg.innerHTML = '<span class="err">Alt text is required.</span>'; return; }
+    const btn = $('#img-btn');
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Uploading…'; msg.textContent = '';
+    try {
+      const data_base64 = await fileToBase64(file);
+      await api('/api/admin/images/upload', {
+        method: 'POST',
+        body: JSON.stringify({ filename: file.name, mime: file.type, data_base64, alt_text: alt }),
+      });
+      msg.innerHTML = '<span class="ok">Image added to library</span>';
+      $('#img-file').value = ''; $('#img-alt').value = '';
+    } catch (err) {
+      msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  });
+}
+
 function wireEditorChrome() {
   $('#toggle').addEventListener('change', async (e) => {
+    // Confirm before the toggle state takes effect. On cancel, revert the
+    // checkbox and make no API call so the stored value is untouched.
+    if (!confirm('Are you sure? Posts will automatically go live.')) {
+      e.target.checked = !e.target.checked;
+      return;
+    }
     const value = e.target.checked ? 'on' : 'off';
     updateToggleDesc(e.target.checked);
     try {
@@ -259,6 +443,7 @@ function wireEditorChrome() {
       const which = tab.dataset.tab;
       $('#view-gregg').classList.toggle('hidden', which !== 'gregg');
       $('#view-editor').classList.toggle('hidden', which !== 'editor');
+      $('#view-addcontent').classList.toggle('hidden', which !== 'addcontent');
     });
   });
 }
@@ -284,9 +469,12 @@ async function init() {
     $('#tabs').classList.remove('hidden');
     wireEditorChrome();
     renderEditor(state);
+    wireAddContent();
+    loadUpcomingTopics();
   } else {
-    // Gregg role: no tabs, editor view stays hidden.
+    // Legacy gregg role (no longer assigned): no tabs, only the Record view.
     $('#view-editor').remove();
+    $('#view-addcontent').remove();
   }
 }
 

@@ -63,6 +63,26 @@
     .badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: var(--light-gray); }
     .signin { text-align: center; padding: 80px var(--gap-standard); }
     .err { color: #c0392b; }
+    .ok { color: #1e7e34; }
+
+    /* Add Content view */
+    .content-section { border: 1px solid var(--border); border-radius: var(--radius-card);
+      padding: var(--gap-standard); margin-bottom: var(--gap-loose); }
+    .content-section h3 { margin-top: 0; }
+    .topic-card { border: 1px solid var(--border); border-radius: var(--radius-card);
+      padding: var(--gap-standard); margin-bottom: var(--gap-standard); background: #fff; }
+    .topic-card h4 { margin: 0 0 6px; font-family: var(--font-head); color: var(--navy); }
+    .topic-card .cat { display: inline-block; background: var(--light-gray); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 10px; font-size: 12px; margin-bottom: 6px; }
+    .topic-card ul { margin: 8px 0 12px 18px; }
+    .topic-card .kw { font-size: 13px; color: var(--text-muted); }
+    .card-actions { display: flex; gap: var(--gap-tight); }
+    .upcoming-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .upcoming-table th, .upcoming-table td { text-align: left; padding: 8px;
+      border-bottom: 1px solid var(--border); }
+    .upcoming-table th { font-weight: 600; color: var(--text-muted); }
+    select.field-select { width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+      border-radius: 6px; font: inherit; }
   </style>
 </head>
 <body>
@@ -85,7 +105,8 @@
 
       <div id="tabs" class="admin-tabs hidden">
         <button class="admin-tab" data-tab="gregg" aria-selected="true">Record</button>
-        <button class="admin-tab" data-tab="editor" aria-selected="false">Editor</button>
+        <button class="admin-tab" data-tab="editor" aria-selected="false">Review</button>
+        <button class="admin-tab" data-tab="addcontent" aria-selected="false">Add Content</button>
       </div>
 
       <!-- ============ Gregg view ============ -->
@@ -127,6 +148,92 @@
 
         <h2 style="margin-top:var(--gap-loose)">Published</h2>
         <div id="published"></div>
+
+        <h2 style="margin-top:var(--gap-loose)">Upcoming Topics</h2>
+        <div id="upcoming-topics"></div>
+      </section>
+
+      <!-- ============ Add Content view ============ -->
+      <section id="view-addcontent" class="hidden">
+
+        <!-- Section A: Generate Topics (AI) -->
+        <div class="content-section">
+          <h3>Generate Topics (AI)</h3>
+          <p class="meta">Generate fresh, original topic ideas. Save the ones you want; discard the rest.</p>
+          <button id="gen-topics-btn" class="btn btn--primary">Generate 5 Topics</button>
+          <span id="gen-topics-msg" class="meta"></span>
+          <div id="gen-topics-results" style="margin-top:var(--gap-standard)"></div>
+          <button id="gen-more-btn" class="btn btn--primary hidden">Generate 5 More</button>
+        </div>
+
+        <!-- Section B: Bulk Upload -->
+        <div class="content-section">
+          <h3>Bulk Upload</h3>
+          <p class="meta">Upload a .md or .pdf file to extract topics. Missing guiding questions are generated automatically.</p>
+          <div class="field">
+            <input type="file" id="bulk-file" accept=".md,.markdown,.pdf">
+          </div>
+          <button id="bulk-btn" class="btn btn--primary">Upload and Seed</button>
+          <span id="bulk-msg" class="meta"></span>
+          <div id="bulk-results" style="margin-top:var(--gap-standard)"></div>
+        </div>
+
+        <!-- Section C: Manual Entry -->
+        <div class="content-section">
+          <h3>Manual Entry</h3>
+          <form id="manual-form">
+            <div class="field">
+              <label>Title</label>
+              <input type="text" name="title" required>
+            </div>
+            <div class="field">
+              <label>Description</label>
+              <textarea name="description" rows="3" required></textarea>
+            </div>
+            <div class="field">
+              <label>Category</label>
+              <select class="field-select" name="category" required>
+                <option value="">Select a category…</option>
+                <option value="probate">probate</option>
+                <option value="divorce">divorce</option>
+                <option value="market">market</option>
+                <option value="community">community</option>
+                <option value="buyer-seller">buyer-seller</option>
+                <option value="local">local</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Main Keyword</label>
+              <input type="text" name="main_keyword" required>
+            </div>
+            <div class="field">
+              <label>Guiding Questions <span class="charcount">(one per line)</span></label>
+              <textarea name="guiding_questions" rows="4" required></textarea>
+            </div>
+            <div class="field">
+              <label>Scheduled Date</label>
+              <input type="date" name="scheduled_date" required>
+            </div>
+            <button type="submit" class="btn btn--primary">Save Topic</button>
+            <span id="manual-msg" class="meta"></span>
+          </form>
+        </div>
+
+        <!-- Section D: Image Upload -->
+        <div class="content-section">
+          <h3>Image Upload</h3>
+          <div class="field">
+            <label>Image (jpg, png, webp)</label>
+            <input type="file" id="img-file" accept="image/jpeg,image/png,image/webp">
+          </div>
+          <div class="field">
+            <label>Alt Text</label>
+            <input type="text" id="img-alt" required>
+          </div>
+          <button id="img-btn" class="btn btn--primary">Upload Image</button>
+          <span id="img-msg" class="meta"></span>
+        </div>
+
       </section>
     </div>
   </div>
