@@ -105,7 +105,19 @@
     <!-- ============================ Blog grid ============================ -->
     <section class="section">
       <div class="container">
-        <div class="grid grid--3" id="blog-grid"></div>
+        <div class="grid grid--3">
+          <article class="card">
+            <a href="probate-property-sale-california-executor-steps.html">
+              <img class="card__media" src="../assets/images/blog/probate/man-house-auction.webp" alt="" width="800" height="450" loading="lazy">
+            </a>
+            <div class="card__body">
+              <p class="meta">June 24, 2026 &middot; 4 min read</p>
+              <h2 class="card__title">What an Executor Must Do Before a Probate Property Sale in California</h2>
+              <p class="card__text">Before you list a probate home in California, there are court steps, creditor windows, and fees you need to know. Gregg McElwee breaks it down plainly.</p>
+              <a class="card__link" href="probate-property-sale-california-executor-steps.html">Read more &rarr;</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -173,44 +185,5 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
-
-  <script>
-    // Render blog post cards from index.json (relative: same /blog/ directory)
-    (function () {
-      var grid = document.getElementById('blog-grid');
-      if (!grid) return;
-      var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      function formatDate(iso) {
-        var p = String(iso).split('-'), y = p[0], m = parseInt(p[1], 10), d = parseInt(p[2], 10);
-        return (m && d && y) ? MONTHS[m - 1] + ' ' + d + ', ' + y : String(iso);
-      }
-      function esc(s) {
-        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
-      fetch('index.json')
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          var posts = (data && data.posts) || [];
-          grid.innerHTML = posts.map(function (post) {
-            var href = '/blog/' + post.slug + '.html';
-            var img = post.image ? ('../' + post.image) : '../assets/images/blog-placeholder.svg';
-            var meta = formatDate(post.date);
-            if (post.readMinutes != null) meta += ' &middot; ' + post.readMinutes + ' min read';
-            return '<article class="card">' +
-                '<a href="' + esc(href) + '">' +
-                  '<img class="card__media" src="' + esc(img) + '" alt="" width="800" height="450" loading="lazy">' +
-                '</a>' +
-                '<div class="card__body">' +
-                  '<p class="meta">' + meta + '</p>' +
-                  '<h2 class="card__title">' + esc(post.title) + '</h2>' +
-                  '<p class="card__text">' + esc(post.description) + '</p>' +
-                  '<a class="card__link" href="' + esc(href) + '">Read more &rarr;</a>' +
-                '</div>' +
-              '</article>';
-          }).join('');
-        })
-        .catch(function (err) { console.error('Failed to load blog posts:', err); });
-    })();
-  </script>
 </body>
 </html>

@@ -150,7 +150,7 @@
 <p>Then comes the part nobody loves. Before anything gets distributed, every valid creditor claim has to be paid. Final expenses, taxes, all of it settled first. Sometimes an executor probate home sale isn&#39;t optional. The house has to be sold to generate cash to cover what&#39;s owed. That&#39;s not a failure. That&#39;s how the process works. The estate needs liquidity, and real property is often the biggest asset. Knowing that now saves a lot of confusion later.</p>
 <h2>What a Probate Property Sale in California Is Actually Going to Cost You</h2>
 <p>I want to be plain with you here. A probate property sale in California comes with statutory fees. These are set by law, and they add up.</p>
-<p>Court filing fees, probate referee appraisal fees, executor fees, attorney fees, plus any additional costs the attorney incurs along the way. On a $500,000 sale, the combined executor and attorney fees run around $13,000. On a million-dollar estate, that&#39;s roughly $26,000. There are [online probate calculators] (<a href="https://probatecalculator.org/#calculator">https://probatecalculator.org/#calculator</a>) that help with this, and I&#39;d suggest looking one up before you assume you know the number.</p>
+<p>Court filing fees, probate referee appraisal fees, executor fees, attorney fees, plus any additional costs the attorney incurs along the way. On a $500,000 sale, the combined executor and attorney fees run around $13,000. On a million-dollar estate, that&#39;s roughly $26,000. There are <a href="https://probatecalculator.org/#calculator">online probate calculators</a> that help with this, and I&#39;d suggest looking one up before you assume you know the number.</p>
 <p>These fees come out of the estate before any distribution to heirs. That&#39;s just how it works. I&#39;m not saying the system is wrong. But you should walk in knowing what it costs, not find out at the end. For more on how I work with families through <a href="https://realestateandloans.com/specialties#probate">probate real estate in Orange County</a>, that page lays it out.</p>
 <h2>The Final Accounting Before the Home Can Close</h2>
 <p>Once the debts are paid and the taxes are settled, you&#39;re still not done.</p>
@@ -173,14 +173,6 @@
             </div>
           </div>
         </article>
-      </div>
-    </section>
-
-    <!-- ======================= Related posts ========================= -->
-    <section class="section section--gray" id="related-posts">
-      <div class="container">
-        <h2 class="center" style="margin-bottom:var(--gap-loose);">More from the blog</h2>
-        <div class="grid grid--3" id="related-grid"></div>
       </div>
     </section>
 
@@ -236,49 +228,5 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
-
-  <script>
-    // Render related posts from /blog/index.json, excluding the current post.
-    // Hide the whole section if there are no other posts to show.
-    (function () {
-      var section = document.getElementById('related-posts');
-      var grid = document.getElementById('related-grid');
-      if (!section || !grid) return;
-      var path = location.pathname.replace(/\/+$/, '');
-      var currentSlug = path.split('/').pop().replace(/\.html$/, '');
-      var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      function formatDate(iso) {
-        var p = String(iso).split('-'), y = p[0], m = parseInt(p[1], 10), d = parseInt(p[2], 10);
-        return (m && d && y) ? MONTHS[m - 1] + ' ' + d + ', ' + y : String(iso);
-      }
-      function esc(s) {
-        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
-      fetch('/blog/index.json')
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          var posts = ((data && data.posts) || []).filter(function (p) { return p.slug !== currentSlug; }).slice(0, 3);
-          if (posts.length < 1) { section.style.display = 'none'; return; }
-          grid.innerHTML = posts.map(function (post) {
-            var href = '/blog/' + post.slug + '.html';
-            var img = post.image ? ('../' + post.image) : '../assets/images/blog-placeholder.svg';
-            var meta = formatDate(post.date);
-            if (post.readMinutes != null) meta += ' &middot; ' + post.readMinutes + ' min read';
-            return '<article class="card">' +
-                '<a href="' + esc(href) + '">' +
-                  '<img class="card__media" src="' + esc(img) + '" alt="" width="800" height="450" loading="lazy">' +
-                '</a>' +
-                '<div class="card__body">' +
-                  '<p class="meta">' + meta + '</p>' +
-                  '<h2 class="card__title">' + esc(post.title) + '</h2>' +
-                  '<p class="card__text">' + esc(post.description) + '</p>' +
-                  '<a class="card__link" href="' + esc(href) + '">Read more &rarr;</a>' +
-                '</div>' +
-              '</article>';
-          }).join('');
-        })
-        .catch(function (err) { console.error('Failed to load related posts:', err); section.style.display = 'none'; });
-    })();
-  </script>
 </body>
 </html>
