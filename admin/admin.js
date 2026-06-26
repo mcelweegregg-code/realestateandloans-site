@@ -135,12 +135,6 @@ function renderEditor(state) {
     ? '' : '<p class="meta">No drafts waiting for review.</p>';
   state.pendingPosts.forEach((post) => $('#pending').appendChild(buildPostEditor(post)));
 
-  $('#queue').innerHTML = state.topicsQueue.map((t) => `
-    <div class="queue-item">
-      <span>#${t.order_index} ${escapeHtml(t.title)}</span>
-      <span class="meta">${fmtDate(t.scheduled_date)} <span class="badge">${escapeHtml(t.status)}</span></span>
-    </div>`).join('') || '<p class="meta">Queue is empty.</p>';
-
   $('#published').innerHTML = state.publishedPosts.map((p) => `
     <div class="pub-item">
       <a href="/blog/${encodeURIComponent(p.slug)}" target="_blank" rel="noopener">${escapeHtml(p.title)}</a>
