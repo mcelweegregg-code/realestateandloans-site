@@ -1,4 +1,8 @@
-// POST /api/admin/images/upload — add an image to the library.
+// Media endpoint for the admin panel, dispatched by ?action=.
+//   POST /api/admin/media?action=image-upload — add an image to the library.
+//
+// Folded out of the former api/admin/images/upload.js into a single ?action=
+// dispatched endpoint to stay within the Vercel Hobby 12-function limit.
 //
 // The image arrives as base64 JSON ({ filename, mime, data_base64, alt_text }),
 // matching api/admin/record.js so body handling is identical across Vercel and
@@ -7,11 +11,11 @@
 // convention images.filename already uses), then a row is inserted into the
 // images table (source 'owned', used false). Auth-gated.
 
-import { requireRole } from '../../../lib/admin-auth.js';
-import { sendJson, readJsonBody } from '../../../lib/http.js';
-import { isMock } from '../../../lib/mock.js';
-import { insertImage } from '../../../lib/admin-data.js';
-import { createSingleCommit } from '../../../lib/github.js';
+import { requireRole } from '../../lib/admin-auth.js';
+import { sendJson, readJsonBody, getQuery } from '../../lib/http.js';
+import { isMock } from '../../lib/mock.js';
+import { insertImage } from '../../lib/admin-data.js';
+import { createSingleCommit } from '../../lib/github.js';
 
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
 const IMAGE_DIR = 'assets/images/blog/owned';
@@ -33,6 +37,11 @@ export default async function handler(req, res) {
   const session = requireRole(req, res, ['gregg', 'editor']);
   if (!session) return;
   if (req.method !== 'POST') return sendJson(res, 405, { error: 'method not allowed' });
+
+  const { action } = getQuery(req);
+  if (action !== 'image-upload') {
+    return sendJson(res, 400, { error: 'action is required' });
+  }
 
   try {
     const { filename, mime, data_base64: dataBase64, alt_text: altText } = await readJsonBody(req);

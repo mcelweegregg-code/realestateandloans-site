@@ -323,7 +323,7 @@ function wireAddContent() {
     btn.disabled = true; btn.textContent = 'Generating…';
     genMsg.textContent = ''; moreBtn.classList.add('hidden');
     try {
-      const { topics } = await api('/api/admin/topics/generate', { method: 'POST', body: '{}' });
+      const { topics } = await api('/api/admin/topics?action=generate', { method: 'POST', body: '{}' });
       genResults.innerHTML = '';
       const onActed = () => {
         // Once every card has been saved or discarded, offer another batch.
@@ -350,7 +350,7 @@ function wireAddContent() {
     btn.disabled = true; btn.textContent = 'Reading file…'; msg.textContent = ''; results.innerHTML = '';
     try {
       const data_base64 = await fileToBase64(file);
-      const { topics } = await api('/api/admin/topics/bulk-upload', {
+      const { topics } = await api('/api/admin/topics?action=bulk-upload', {
         method: 'POST',
         body: JSON.stringify({ filename: file.name, mime: file.type, data_base64 }),
       });
@@ -404,7 +404,7 @@ function wireAddContent() {
     btn.disabled = true; btn.textContent = 'Uploading…'; msg.textContent = '';
     try {
       const data_base64 = await fileToBase64(file);
-      await api('/api/admin/images/upload', {
+      await api('/api/admin/media?action=image-upload', {
         method: 'POST',
         body: JSON.stringify({ filename: file.name, mime: file.type, data_base64, alt_text: alt }),
       });

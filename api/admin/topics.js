@@ -3,14 +3,132 @@
 //        ordered by scheduled_date ascending (read-only queue view).
 //   POST /api/admin/topics                  → insert a single topic. status
 //        defaults to 'upcoming'; order_index is auto-assigned as max + 1.
+//   POST /api/admin/topics?action=generate     → AI-generate 5 topic ideas.
+//   POST /api/admin/topics?action=bulk-upload  → extract topics from a .md/.pdf.
 //
-// Auth-gated like the rest of /api/admin/* — any authenticated admin session.
+// The two ?action= branches were folded in from the former
+// api/admin/topics/generate.js and api/admin/topics/bulk-upload.js to stay
+// within the Vercel Hobby 12-function limit. Auth-gated like the rest of
+// /api/admin/* — any authenticated admin session.
 
 import { requireRole } from '../../lib/admin-auth.js';
 import { sendJson, readJsonBody, getQuery } from '../../lib/http.js';
-import { createTopic, getTopicsByStatus } from '../../lib/admin-data.js';
+import { createTopic, getTopicsByStatus, getAllTopicTitles } from '../../lib/admin-data.js';
+import { isMock } from '../../lib/mock.js';
+import { createAnthropicClient } from '../../lib/generation/anthropic.js';
+import {
+  buildGeneratePrompt,
+  buildExtractPrompt,
+  parseTopicsJson,
+  backfillGuidingQuestions,
+  TOPIC_CATEGORIES,
+} from '../../lib/admin-topics-ai.js';
 
 const CATEGORIES = ['probate', 'divorce', 'market', 'community', 'buyer-seller', 'local'];
+
+const MAX_FILE_BYTES = 8 * 1024 * 1024;
+
+// Preserved verbatim from the former api/admin/topics/generate.js.
+const GENERATE_MOCK_TOPICS = [
+  {
+    title: 'What Happens to the House When Siblings Inherit It Together',
+    description: 'Co-inherited probate homes are where families fall apart. How Gregg keeps the sale — and the relationships — intact.',
+    category: 'probate',
+    main_keyword: 'inherited house multiple siblings Orange County',
+    guiding_questions: [
+      'What goes wrong most often when siblings inherit a house together?',
+      'How do you keep one heir from stalling the whole sale?',
+      'What do you tell a family that can’t agree on a price?',
+    ],
+  },
+  {
+    title: 'Selling the Family Home in a Divorce Without Making It Worse',
+    description: 'A neutral, practical look at timing, pricing, and communication when a divorcing couple has to sell.',
+    category: 'divorce',
+    main_keyword: 'selling home during divorce Orange County',
+    guiding_questions: [
+      'How do you stay neutral when two clients want opposite things?',
+      'What’s the biggest mistake divorcing sellers make on price?',
+      'When is it better to sell before the divorce is final?',
+    ],
+  },
+  {
+    title: 'San Clemente vs. Dana Point: Where Your Money Goes Further in 2026',
+    description: 'A grounded comparison of two coastal markets Gregg has worked for decades.',
+    category: 'market',
+    main_keyword: 'San Clemente vs Dana Point real estate 2026',
+    guiding_questions: [
+      'What kind of buyer is each town really right for?',
+      'Where are you seeing the better value this year?',
+      'What surprises out-of-area buyers about these two markets?',
+    ],
+  },
+  {
+    title: 'The Estate Sale Timeline Nobody Explains to Executors',
+    description: 'Court dates, cleanouts, appraisals, listing — what the months actually look like, in order.',
+    category: 'probate',
+    main_keyword: 'estate sale timeline California executor',
+    guiding_questions: [
+      'What’s the first thing an executor should do, and what can wait?',
+      'Where do timelines usually slip?',
+      'How early should they call an agent?',
+    ],
+  },
+  {
+    title: 'Why I Still Door-Knock After 40 Years in South County',
+    description: 'A first-person take on community presence and why local reputation still closes deals.',
+    category: 'community',
+    main_keyword: 'local real estate agent South Orange County',
+    guiding_questions: [
+      'What does door-knocking get you that online leads don’t?',
+      'How has the neighborhood changed over 40 years?',
+      'What keeps you doing it?',
+    ],
+  },
+];
+
+// Preserved verbatim from the former api/admin/topics/bulk-upload.js.
+const BULK_MOCK_TOPICS = [
+  {
+    title: 'Probate Court Approval: The Step Most Heirs Underestimate',
+    description: 'What court confirmation actually involves and how it changes your sale timeline.',
+    category: 'probate',
+    main_keyword: 'probate court approval home sale California',
+    guiding_questions: [
+      'When is court confirmation required and when is it not?',
+      'How long does the confirmation hearing add?',
+      'What can derail it at the last minute?',
+    ],
+  },
+  {
+    title: 'Pricing a Divorce Sale When Emotions Run High',
+    description: 'A practical framework for setting a price both parties can live with.',
+    category: 'divorce',
+    main_keyword: 'pricing home divorce sale Orange County',
+    guiding_questions: [
+      'How do you anchor the conversation to the market, not the marriage?',
+      'What do you do when the two parties want different prices?',
+      'When should they bring in a neutral appraisal?',
+    ],
+  },
+];
+
+// Preserved from the former api/admin/topics/bulk-upload.js.
+async function extractText({ filename, mime, buffer }) {
+  const name = (filename || '').toLowerCase();
+  const isPdf = name.endsWith('.pdf') || mime === 'application/pdf';
+  const isMd = name.endsWith('.md') || name.endsWith('.markdown') || mime === 'text/markdown';
+
+  if (isMd) return buffer.toString('utf8');
+  if (isPdf) {
+    // pdf-parse is CommonJS; import the inner module directly to avoid its
+    // index.js debug-mode file read when there is no module.parent.
+    const { default: pdfParse } = await import('pdf-parse/lib/pdf-parse.js');
+    const data = await pdfParse(buffer);
+    return data.text || '';
+  }
+  throw new Error('only .md and .pdf files are accepted');
+}
 
 export default async function handler(req, res) {
   const session = requireRole(req, res, ['gregg', 'editor']);
@@ -24,6 +142,58 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
+      const { action } = getQuery(req);
+
+      // ?action=generate — AI-generate 5 fresh topic ideas (was topics/generate.js).
+      if (action === 'generate') {
+        if (isMock()) return sendJson(res, 200, { topics: GENERATE_MOCK_TOPICS });
+
+        const existingTitles = await getAllTopicTitles();
+        const client = createAnthropicClient();
+        const text = await client({
+          label: 'topic generation',
+          prompt: buildGeneratePrompt(existingTitles),
+          maxTokens: 2048,
+        });
+        const topics = parseTopicsJson(text)
+          .filter((t) => t.title && TOPIC_CATEGORIES.includes(t.category))
+          .slice(0, 5);
+
+        if (!topics.length) return sendJson(res, 502, { error: 'topic generation returned no usable topics' });
+        return sendJson(res, 200, { topics });
+      }
+
+      // ?action=bulk-upload — extract topics from an uploaded file (was topics/bulk-upload.js).
+      if (action === 'bulk-upload') {
+        if (isMock()) return sendJson(res, 200, { topics: BULK_MOCK_TOPICS });
+
+        const { filename, mime, data_base64: dataBase64 } = await readJsonBody(req);
+        if (!dataBase64) return sendJson(res, 400, { error: 'data_base64 is required' });
+
+        const buffer = Buffer.from(dataBase64, 'base64');
+        if (buffer.length === 0) return sendJson(res, 400, { error: 'file is empty' });
+        if (buffer.length > MAX_FILE_BYTES) return sendJson(res, 413, { error: 'file too large (max 8MB)' });
+
+        const text = await extractText({ filename, mime, buffer });
+        if (!text || text.trim().length < 20) {
+          return sendJson(res, 422, { error: 'could not read enough text from the file' });
+        }
+
+        const client = createAnthropicClient();
+        const raw = await client({
+          label: 'bulk topic extraction',
+          prompt: buildExtractPrompt(text.slice(0, 40000)),
+          maxTokens: 4096,
+        });
+        let topics = parseTopicsJson(raw).filter((t) => t.title);
+        topics = await backfillGuidingQuestions(topics, client);
+        topics = topics.filter((t) => TOPIC_CATEGORIES.includes(t.category) || !t.category);
+
+        if (!topics.length) return sendJson(res, 502, { error: 'no topics could be extracted from the file' });
+        return sendJson(res, 200, { topics });
+      }
+
+      // No action — existing single-topic insert (unchanged).
       const body = await readJsonBody(req);
       const title = (body.title || '').trim();
       const description = (body.description || '').trim();
