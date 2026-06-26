@@ -173,18 +173,15 @@
     </section>
 
     <!-- ===================== Featured blog posts ==================== -->
-    <!-- Featured posts rendered at runtime from /blog/index.json (see script before </body>) -->
     <section class="section">
       <div class="container">
         <div class="section-head">
           <p class="eyebrow">From the blog</p>
           <h2>Insights from the South OC coast</h2>
         </div>
-
-        <div class="grid grid--3" id="home-blog-grid"></div>
-
+        <p class="lead" style="max-width: var(--reading-max)">After spending nearly 40 years working probate, divorce, and estate sales on this coast, I have seen every market condition, every family dynamic, and every deal complication there is. My blog covers what buyers and sellers actually need to know: probate timelines, market conditions, community guides, and the kind of straight talk you won't get from an algorithm-generated listing report.</p>
         <p class="center" style="margin-top: var(--gap-loose); margin-bottom:0;">
-          <a class="btn btn--secondary" href="blog/index.html">View all posts</a>
+          <a class="btn btn--secondary" href="blog/index.html">Read the blog &rarr;</a>
         </p>
       </div>
     </section>
@@ -291,40 +288,5 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-
-  <script>
-    // Render up to 3 most recent posts from /blog/index.json (absolute path from site root)
-    (function () {
-      var grid = document.getElementById('home-blog-grid');
-      if (!grid) return;
-      var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      function formatDate(iso) {
-        var p = String(iso).split('-'), y = p[0], m = parseInt(p[1], 10), d = parseInt(p[2], 10);
-        return (m && d && y) ? MONTHS[m - 1] + ' ' + d + ', ' + y : String(iso);
-      }
-      function esc(s) {
-        return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
-      fetch('/blog/index.json')
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          var posts = ((data && data.posts) || []).slice(0, 3);
-          grid.innerHTML = posts.map(function (post) {
-            var href = 'blog/' + post.slug + '.html';
-            var img = post.image ? post.image : 'assets/images/blog-placeholder.svg';
-            return '<a class="card" href="' + esc(href) + '">' +
-                '<img class="card__media" src="' + esc(img) + '" alt="" width="800" height="450" loading="lazy">' +
-                '<div class="card__body">' +
-                  '<p class="meta">' + formatDate(post.date) + '</p>' +
-                  '<h3 class="card__title">' + esc(post.title) + '</h3>' +
-                  '<p class="card__text">' + esc(post.description) + '</p>' +
-                  '<span class="card__link">Read more &rarr;</span>' +
-                '</div>' +
-              '</a>';
-          }).join('');
-        })
-        .catch(function (err) { console.error('Failed to load blog posts:', err); });
-    })();
-  </script>
 </body>
 </html>
