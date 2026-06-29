@@ -266,7 +266,6 @@ export default async function handler(req, res) {
       const description = (body.description || '').trim();
       const category = (body.category || '').trim();
       const primaryKeyword = (body.main_keyword ?? body.primary_keyword ?? '').trim();
-      const scheduledDate = (body.scheduled_date || '').trim();
 
       // guiding_questions may arrive as an array or a newline-delimited string.
       let guidingQuestions = body.guiding_questions ?? [];
@@ -284,13 +283,9 @@ export default async function handler(req, res) {
         return sendJson(res, 400, { error: `category must be one of: ${CATEGORIES.join(', ')}` });
       }
 
-      // Fix 3: generated-topic saves arrive without a date — auto-schedule them
-      // on the next publish Wednesday. Manual entry sends its own date, which is
-      // honoured here and never overridden.
-      let finalScheduledDate = scheduledDate || null;
-      if (!finalScheduledDate) {
-        finalScheduledDate = nextPublishWednesday(await latestScheduledDate());
-      }
+      // Every topic (generated or manual) is auto-scheduled on the next publish
+      // Wednesday, at least 7 days after the latest scheduled topic.
+      const finalScheduledDate = nextPublishWednesday(await latestScheduledDate());
 
       const topic = await createTopic({
         title,
