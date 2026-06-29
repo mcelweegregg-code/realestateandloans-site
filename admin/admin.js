@@ -389,10 +389,10 @@ function wireAddContent() {
   // ---- Section D: Image Upload ----
   $('#img-btn').addEventListener('click', async () => {
     const file = $('#img-file').files[0];
-    const alt = $('#img-alt').value.trim();
+    const category = $('#img-category').value;
     const msg = $('#img-msg');
     if (!file) { msg.innerHTML = '<span class="err">Choose an image first.</span>'; return; }
-    if (!alt) { msg.innerHTML = '<span class="err">Alt text is required.</span>'; return; }
+    if (!category) { msg.innerHTML = '<span class="err">Choose a category.</span>'; return; }
     const btn = $('#img-btn');
     const orig = btn.textContent;
     btn.disabled = true; btn.textContent = 'Uploading…'; msg.textContent = '';
@@ -400,10 +400,10 @@ function wireAddContent() {
       const data_base64 = await fileToBase64(file);
       await api('/api/admin/media?action=image-upload', {
         method: 'POST',
-        body: JSON.stringify({ filename: file.name, mime: file.type, data_base64, alt_text: alt }),
+        body: JSON.stringify({ filename: file.name, mime: file.type, data_base64, category }),
       });
       msg.innerHTML = '<span class="ok">Image added to library</span>';
-      $('#img-file').value = ''; $('#img-alt').value = '';
+      $('#img-file').value = ''; $('#img-category').value = '';
     } catch (err) {
       msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
     } finally {

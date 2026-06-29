@@ -225,8 +225,16 @@
             <p class="meta">JPG files are not recommended. They are larger and can slow down page load, which affects SEO. Use PNG or WebP.</p>
           </div>
           <div class="field">
-            <label>Alt Text</label>
-            <input type="text" id="img-alt" required>
+            <label>Category</label>
+            <select class="field-select" id="img-category" required>
+              <option value="">Select a category…</option>
+              <option value="probate">probate</option>
+              <option value="divorce">divorce</option>
+              <option value="market">market</option>
+              <option value="community">community</option>
+              <option value="buyer-seller">buyer-seller</option>
+              <option value="local">local</option>
+            </select>
           </div>
           <button id="img-btn" class="btn btn--primary">Upload Image</button>
           <span id="img-msg" class="meta"></span>
