@@ -4,7 +4,8 @@
 //   POST /api/admin/topics                  → insert a single topic. status
 //        defaults to 'upcoming'; order_index is auto-assigned as max + 1.
 //   POST /api/admin/topics?action=generate     → AI-generate 5 topic ideas.
-//   POST /api/admin/topics?action=bulk-upload  → extract topics from a .md/.pdf.
+//   POST /api/admin/topics?action=bulk-upload  → extract topics from a .md/.pdf
+//        and insert them directly into Supabase (returns a saved count).
 //
 // The two ?action= branches were folded in from the former
 // api/admin/topics/generate.js and api/admin/topics/bulk-upload.js to stay
@@ -14,6 +15,7 @@
 import { requireRole } from '../../lib/admin-auth.js';
 import { sendJson, readJsonBody, getQuery } from '../../lib/http.js';
 import { createTopic, getTopicsByStatus, getAllTopicTitles } from '../../lib/admin-data.js';
+import { getSupabaseClient } from '../../lib/supabase.js';
 import { isMock } from '../../lib/mock.js';
 import { createAnthropicClient } from '../../lib/generation/anthropic.js';
 import {
@@ -130,6 +132,36 @@ async function extractText({ filename, mime, buffer }) {
   throw new Error('only .md and .pdf files are accepted');
 }
 
+// Fix 3: generated topics save with no date. Schedule them on the next
+// Wednesday (the publish day) that is at least 7 days after the latest
+// scheduled topic: take MAX(scheduled_date) + 7 days, then advance to the next
+// Wednesday if that day is not already a Wednesday. UTC throughout so the
+// YYYY-MM-DD boundary never drifts by timezone.
+function nextPublishWednesday(maxDateStr) {
+  const base = maxDateStr ? new Date(`${maxDateStr}T00:00:00Z`) : new Date();
+  base.setUTCDate(base.getUTCDate() + 7);
+  const delta = (3 - base.getUTCDay() + 7) % 7; // 0 when already Wednesday
+  base.setUTCDate(base.getUTCDate() + delta);
+  return base.toISOString().slice(0, 10);
+}
+
+// MAX(scheduled_date) across all existing topics, or null when none have one.
+async function latestScheduledDate() {
+  if (isMock()) {
+    const existing = await getTopicsByStatus('upcoming');
+    const dates = existing.map((t) => t.scheduled_date).filter(Boolean).sort();
+    return dates.length ? dates[dates.length - 1] : null;
+  }
+  const { data, error } = await getSupabaseClient()
+    .from('topics')
+    .select('scheduled_date')
+    .not('scheduled_date', 'is', null)
+    .order('scheduled_date', { ascending: false })
+    .limit(1);
+  if (error) throw new Error(`topics scheduled_date read failed: ${error.message}`);
+  return data.length ? data[0].scheduled_date : null;
+}
+
 export default async function handler(req, res) {
   const session = requireRole(req, res, ['gregg', 'editor']);
   if (!session) return;
@@ -163,9 +195,22 @@ export default async function handler(req, res) {
         return sendJson(res, 200, { topics });
       }
 
-      // ?action=bulk-upload — extract topics from an uploaded file (was topics/bulk-upload.js).
+      // ?action=bulk-upload — extract topics from an uploaded file and insert
+      // them straight into Supabase (no client-side review). Returns a count.
       if (action === 'bulk-upload') {
-        if (isMock()) return sendJson(res, 200, { topics: BULK_MOCK_TOPICS });
+        if (isMock()) {
+          for (const t of BULK_MOCK_TOPICS) {
+            await createTopic({
+              title: t.title,
+              description: t.description,
+              category: t.category || null,
+              primary_keyword: t.main_keyword,
+              guiding_questions: t.guiding_questions,
+              scheduled_date: t.scheduled_date ?? null,
+            });
+          }
+          return sendJson(res, 200, { ok: true, count: BULK_MOCK_TOPICS.length });
+        }
 
         const { filename, mime, data_base64: dataBase64 } = await readJsonBody(req);
         if (!dataBase64) return sendJson(res, 400, { error: 'data_base64 is required' });
@@ -190,7 +235,29 @@ export default async function handler(req, res) {
         topics = topics.filter((t) => TOPIC_CATEGORIES.includes(t.category) || !t.category);
 
         if (!topics.length) return sendJson(res, 502, { error: 'no topics could be extracted from the file' });
-        return sendJson(res, 200, { topics });
+
+        // Fix 2: read each topic's "- **Scheduled:** YYYY-MM-DD" field from the
+        // source text in document order and apply it to the extracted topics by
+        // position (the .md uses one Scheduled field per topic block, in order).
+        const scheduledDates = [...text.matchAll(/\*\*Scheduled:\*\*\s*(\d{4}-\d{2}-\d{2})/g)]
+          .map((m) => m[1]);
+
+        // Fix 1: insert every extracted topic directly; no review cards.
+        let count = 0;
+        for (let i = 0; i < topics.length; i += 1) {
+          const t = topics[i];
+          await createTopic({
+            title: t.title,
+            description: t.description,
+            category: t.category || null,
+            primary_keyword: t.main_keyword,
+            guiding_questions: t.guiding_questions,
+            scheduled_date: scheduledDates[i] || null,
+          });
+          count += 1;
+        }
+
+        return sendJson(res, 200, { ok: true, count });
       }
 
       // No action — existing single-topic insert (unchanged).
@@ -217,13 +284,21 @@ export default async function handler(req, res) {
         return sendJson(res, 400, { error: `category must be one of: ${CATEGORIES.join(', ')}` });
       }
 
+      // Fix 3: generated-topic saves arrive without a date — auto-schedule them
+      // on the next publish Wednesday. Manual entry sends its own date, which is
+      // honoured here and never overridden.
+      let finalScheduledDate = scheduledDate || null;
+      if (!finalScheduledDate) {
+        finalScheduledDate = nextPublishWednesday(await latestScheduledDate());
+      }
+
       const topic = await createTopic({
         title,
         description,
         category: category || null,
         primary_keyword: primaryKeyword,
         guiding_questions: guidingQuestions,
-        scheduled_date: scheduledDate || null,
+        scheduled_date: finalScheduledDate,
       });
       return sendJson(res, 200, { ok: true, topic });
     }

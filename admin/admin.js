@@ -344,12 +344,12 @@ function wireAddContent() {
     btn.disabled = true; btn.textContent = 'Reading file…'; msg.textContent = ''; results.innerHTML = '';
     try {
       const data_base64 = await fileToBase64(file);
-      const { topics } = await api('/api/admin/topics?action=bulk-upload', {
+      const { count } = await api('/api/admin/topics?action=bulk-upload', {
         method: 'POST',
         body: JSON.stringify({ filename: file.name, mime: file.type, data_base64 }),
       });
-      if (!topics.length) { msg.textContent = 'No topics found in that file.'; return; }
-      topics.forEach((t) => results.appendChild(buildTopicCard(t)));
+      results.innerHTML = '';
+      msg.innerHTML = `<span class="ok">${count} topic${count === 1 ? '' : 's'} saved.</span>`;
     } catch (err) {
       msg.innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
     } finally {
