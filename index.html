@@ -79,6 +79,14 @@
     .hero::after { z-index: 1; }
     /* Keep the headline, subtitle and CTAs above everything */
     .hero__content { position: relative; z-index: 2; }
+    /* From-the-blog two-column feature: text left, image right (stacks on mobile) */
+    .blog-feature { align-items: center; }
+    .blog-feature__media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-card);
+    }
   </style>
 </head>
 <body>
@@ -175,14 +183,21 @@
     <!-- ===================== Featured blog posts ==================== -->
     <section class="section">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">From the blog</p>
-          <h2>Insights from the South OC coast</h2>
+        <div class="grid grid--2 blog-feature">
+          <div class="blog-feature__text">
+            <div class="section-head">
+              <p class="eyebrow">From the blog</p>
+              <h2>Insights from the South OC coast</h2>
+            </div>
+            <p class="lead" style="max-width: var(--reading-max)">After spending nearly 40 years working probate, divorce, and estate sales on this coast, I have seen every market condition, every family dynamic, and every deal complication there is. My blog covers what buyers and sellers actually need to know: probate timelines, market conditions, community guides, and the kind of straight talk you won't get from an algorithm-generated listing report.</p>
+            <p class="center" style="margin-top: var(--gap-loose); margin-bottom:0;">
+              <a class="btn btn--secondary" href="blog/index.html">Read the blog &rarr;</a>
+            </p>
+          </div>
+          <div class="blog-feature__media">
+            <img src="assets/images/home_page/OC_blog_image_gemini.webp" alt="Aerial view of Dana Point coastline and homes in South Orange County" width="800" height="600" loading="lazy">
+          </div>
         </div>
-        <p class="lead" style="max-width: var(--reading-max)">After spending nearly 40 years working probate, divorce, and estate sales on this coast, I have seen every market condition, every family dynamic, and every deal complication there is. My blog covers what buyers and sellers actually need to know: probate timelines, market conditions, community guides, and the kind of straight talk you won't get from an algorithm-generated listing report.</p>
-        <p class="center" style="margin-top: var(--gap-loose); margin-bottom:0;">
-          <a class="btn btn--secondary" href="blog/index.html">Read the blog &rarr;</a>
-        </p>
       </div>
     </section>
 
