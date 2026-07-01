@@ -1,6 +1,6 @@
 // M6 mock test harness. Runs the reminder and publish cron jobs in mock
 // mode against the cron-data fixtures, exercising every branch:
-//   - reminder job: finds tomorrow's topic, "sends" email + WhatsApp
+//   - reminder job: one topic per ladder stage (3d / 2d / 1d), email only
 //   - publish job, toggle OFF: auto-publish, both voice-memo and RAG paths
 //   - publish job, toggle ON: save pending_review + ping editor
 //
@@ -32,8 +32,9 @@ _seedMockStore(probateChunks.map((content, i) => ({
   source_type: 'voice_memo', source_id: 'seed-probate', chunk_index: i, content, embedding: embeddings[i],
 })));
 
-hr('REMINDER JOB (today=2026-06-19, looks for topics on 2026-06-20)');
-console.log(JSON.stringify(await runReminderJob(), null, 2));
+hr('REMINDER JOB (today=2026-06-19, ladder targets 06-22/3d, 06-21/2d, 06-20/1d)');
+const remSummary = await runReminderJob();
+console.log(JSON.stringify(remSummary, null, 2));
 
 hr('PUBLISH JOB — editor toggle OFF (auto-publish)');
 await setEditorToggle('off');
@@ -49,6 +50,13 @@ console.log(JSON.stringify(onSummary, null, 2));
 hr('ASSERTIONS');
 const checks = [];
 const assert = (name, cond) => { checks.push({ name, pass: Boolean(cond) }); };
+
+const remByTopic = Object.fromEntries(remSummary.processed.map((p) => [p.topicId, p]));
+assert('REMINDER: exactly three reminders sent', remSummary.processed.length === 3);
+assert('REMINDER: topic-c got the 3-day email', remByTopic['cron-topic-c']?.stage === '3d' && remByTopic['cron-topic-c']?.email?.ok);
+assert('REMINDER: topic-d got the 2-day email', remByTopic['cron-topic-d']?.stage === '2d' && remByTopic['cron-topic-d']?.email?.ok);
+assert('REMINDER: topic-e got the 1-day email', remByTopic['cron-topic-e']?.stage === '1d' && remByTopic['cron-topic-e']?.email?.ok);
+assert('REMINDER: recorded topic-a untouched', !remByTopic['cron-topic-a']);
 
 const offByTopic = Object.fromEntries(offSummary.processed.map((p) => [p.topicId, p]));
 assert('OFF: topic-a used voice_memo path', offByTopic['cron-topic-a']?.mode === 'voice_memo');
