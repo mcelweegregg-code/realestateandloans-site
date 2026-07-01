@@ -89,8 +89,8 @@ create table if not exists posts (
   meta_description text,
   primary_keyword  text,
   keywords_used    text[],
-  internal_link_a  text,           -- Pool A URL used (realestateandloans.com)
-  internal_link_b  text,           -- Pool B URL used (greggmcelwee.com)
+  internal_link_a  text,           -- first internal link used (null if none)
+  internal_link_b  text,           -- second internal link used, may be null (0-2 links per post)
   image_used       text,           -- nullable until image handling lands in v2
   rag_fallback     boolean not null default false,
   craft_audit      text,           -- Call 3 audit log, for editor review
