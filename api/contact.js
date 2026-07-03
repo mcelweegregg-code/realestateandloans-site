@@ -39,10 +39,10 @@ export default async function handler(req, res) {
     } else {
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.CONTACT_FORM_SHEETS_ID,
-        range: 'Form Submissions!A:G',
+        range: 'Form Submissions!A:F',
         valueInputOption: 'USER_ENTERED',
         requestBody: {
-          values: [[timestamp, name, email, phone || '', category, message, new Date().toISOString()]],
+          values: [[new Date().toISOString(), name, email, phone || '', category, message]],
         },
       });
 
