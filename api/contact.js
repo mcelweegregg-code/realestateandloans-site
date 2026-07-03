@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { Resend } from 'resend';
+import { checkSpamRules, classifyWithAI } from '../lib/spam-filter.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -7,11 +8,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, phone, category, message, timestamp } = req.body;
+    const { name, email, phone, category, message, timestamp, website } = req.body;
 
     if (!name || !email || !message || !category) {
       return res.status(400).json({ result: 'error', message: 'Please complete all required fields.' });
     }
+
+    // --- Spam classification: rules first, AI only if inconclusive ---
+    const spamResult = checkSpamRules({ website, message, email })
+      || await classifyWithAI({ name, email, phone, category, message });
 
     // --- Google Sheets ---
     const keyJson = JSON.parse(Buffer.from(process.env.CONTACT_FORM_SERVICE_ACCOUNT_KEY, 'base64').toString('utf8'));
@@ -20,26 +25,38 @@ export default async function handler(req, res) {
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     const sheets = google.sheets({ version: 'v4', auth });
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.CONTACT_FORM_SHEETS_ID,
-      range: 'Form Submissions!A:G',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [[timestamp, name, email, phone || '', category, message, new Date().toISOString()]],
-      },
-    });
-
-    // --- Resend: notify Gregg ---
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: 'Contact Form <noreply@realestateandloans.com>',
-      to: process.env.CONTACT_NOTIFY_TO,
-      subject: `New contact form submission: ${category} from ${name}`,
-      text: `You have a new contact form submission.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nCategory: ${category}\nMessage:\n${message}\n\nSubmitted: ${timestamp}`,
-      replyTo: email,
-    });
 
-    // --- Resend: confirm to submitter ---
+    if (spamResult.flagged) {
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.CONTACT_FORM_SHEETS_ID,
+        range: 'Spam!A:G',
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [[timestamp, name, email, phone || '', category, message, spamResult.reason]],
+        },
+      });
+    } else {
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.CONTACT_FORM_SHEETS_ID,
+        range: 'Form Submissions!A:G',
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [[timestamp, name, email, phone || '', category, message, new Date().toISOString()]],
+        },
+      });
+
+      // --- Resend: notify Gregg (skipped for flagged submissions) ---
+      await resend.emails.send({
+        from: 'Contact Form <noreply@realestateandloans.com>',
+        to: process.env.CONTACT_NOTIFY_TO,
+        subject: `New contact form submission: ${category} from ${name}`,
+        text: `You have a new contact form submission.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nCategory: ${category}\nMessage:\n${message}\n\nSubmitted: ${timestamp}`,
+        replyTo: email,
+      });
+    }
+
+    // --- Resend: confirm to submitter (identical either way) ---
     const firstName = name.split(' ')[0];
     await resend.emails.send({
       from: 'Gregg McElwee <noreply@realestateandloans.com>',

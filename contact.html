@@ -384,7 +384,8 @@
         phone: document.getElementById('phone').value.trim(),
         category: fields.category.el.value,
         message: fields.message.el.value.trim(),
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        website: honeypot ? honeypot.value : ''
       };
 
       var originalText = submitBtn.textContent;
