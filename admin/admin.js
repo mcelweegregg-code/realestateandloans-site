@@ -69,6 +69,7 @@ async function startRecording() {
     const playback = $('#playback');
     playback.src = URL.createObjectURL(recorder.blob);
     playback.classList.remove('hidden');
+    $('#record-confirm').classList.remove('hidden');
     $('#submit-btn').classList.remove('hidden');
     $('#record-status').textContent = 'Listen back, then submit, or record again to replace it.';
   };
@@ -108,6 +109,7 @@ function wireRecorder() {
       $('#record-status').innerHTML = `Got it. The post will go live on schedule.<br><span class="meta">${escapeHtml(r.transcript_preview)}…</span>`;
       $('#record-btn').disabled = true;
       $('#submit-btn').classList.add('hidden');
+      $('#record-confirm').classList.add('hidden');
     } catch (err) {
       $('#record-status').innerHTML = `<span class="err">${escapeHtml(err.message)}</span>`;
       $('#submit-btn').disabled = false;

@@ -32,6 +32,7 @@
     @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,.5); } 50% { box-shadow: 0 0 0 14px rgba(192,57,43,0); } }
     .record-status { margin-top: var(--gap-standard); font-size: 15px; min-height: 1.4em; }
     audio { width: 100%; margin-top: var(--gap-standard); }
+    .btn--large { padding: 18px 40px; font-size: 15px; font-weight: 600; }
 
     /* Editor view */
     .toggle-row { display: flex; align-items: center; gap: var(--gap-tight); margin-bottom: var(--gap-loose);
@@ -119,10 +120,11 @@
           <ul class="guiding" id="g-questions"></ul>
 
           <button id="record-btn" class="record-btn" disabled>Record</button>
-          <div>
-            <button id="submit-btn" class="btn btn--primary hidden">Submit voice note</button>
-          </div>
           <audio id="playback" controls class="hidden"></audio>
+          <p class="record-status hidden" id="record-confirm">Happy with it? Hit Submit. Want to redo it? Record again before submitting.</p>
+          <div>
+            <button id="submit-btn" class="btn btn--primary btn--large hidden">Submit voice note</button>
+          </div>
           <p class="record-status" id="record-status">Waiting for your recording.</p>
         </div>
       </section>
