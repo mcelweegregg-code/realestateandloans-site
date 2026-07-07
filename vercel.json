@@ -11,7 +11,7 @@
     },
     {
       "path": "/api/cron/sweep-links",
-      "schedule": "20 * * * *"
+      "schedule": "30 13 * * *"
     }
   ]
 }
