@@ -148,6 +148,39 @@ function updateToggleDesc(on) {
     : 'OFF — drafts auto-publish at the scheduled time without review.';
 }
 
+// Read-only external-links panel: what the hourly link sweep found for this
+// draft (annotation only — the links themselves live in the body markdown).
+// A link whose relevancy reasoning signals a contradiction gets a visible
+// flag, since a contradicting source usually means the draft's claim needs
+// a factual look before publishing.
+const CONTRADICTION_RE = /contradict|conflicts? with|disagrees?|disputes?|refutes?|understat|overstat/i;
+
+function buildLinksPanel(post) {
+  const rows = (post.injected_links || []).slice().sort((a, b) => {
+    const order = { injected: 0, flagged: 1, surplus: 2 };
+    return (order[a.status] ?? 9) - (order[b.status] ?? 9);
+  });
+  if (rows.length === 0) {
+    const msg = post.links_checked_at
+      ? 'Checked — no qualifying external sources found for this draft.'
+      : 'Link check pending — the hourly sweep has not processed this draft yet.';
+    return `<div class="field"><label>External links</label><p class="meta">${msg}</p></div>`;
+  }
+  const items = rows.map((l) => {
+    const contradiction = l.relevancy_reasoning && CONTRADICTION_RE.test(l.relevancy_reasoning)
+      ? `<div class="lint-warn">Possible contradiction — this source may dispute the draft's claim: ${escapeHtml(l.relevancy_reasoning)}</div>`
+      : '';
+    return `<div style="margin-bottom:10px;">
+      <span class="chips"><span>${escapeHtml(l.status)}</span></span>
+      <strong>${escapeHtml(l.anchor_text || '(no anchor)')}</strong>
+      &rarr; <a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.url)}</a>
+      <span class="meta">relevancy ${l.relevancy_score ?? '&mdash;'} &middot; trust ${l.trust_score ?? '&mdash;'}</span>
+      ${contradiction}
+    </div>`;
+  }).join('');
+  return `<div class="field"><label>External links (auto-injected, read-only)</label>${items}</div>`;
+}
+
 function buildPostEditor(post) {
   const el = document.createElement('div');
   el.className = 'post-editor';
@@ -156,6 +189,7 @@ function buildPostEditor(post) {
     ? '<div class="lint-warn">Lint flagged issues in this draft. Review the body before publishing.</div>' : '';
   el.innerHTML = `
     ${lintWarn}
+    ${buildLinksPanel(post)}
     <div class="field">
       <label>Title</label>
       <input data-f="title" value="${escapeHtml(post.title)}">
