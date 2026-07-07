@@ -9,7 +9,10 @@
     "seed": "node scripts/seed.js",
     "dev": "node scripts/dev-server.js",
     "dev:mock": "node scripts/dev-server.js --mock",
-    "preflight": "node scripts/preflight.js"
+    "preflight": "node scripts/preflight.js",
+    "links:onboard": "node scripts/onboard-link-client.js",
+    "links:inject": "node scripts/inject-links.js",
+    "links:recheck": "node scripts/recheck-domains.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
