@@ -8,10 +8,6 @@
     {
       "path": "/api/cron/publish",
       "schedule": "2 13 * * *"
-    },
-    {
-      "path": "/api/cron/sweep-links",
-      "schedule": "30 13 * * *"
     }
   ]
 }
