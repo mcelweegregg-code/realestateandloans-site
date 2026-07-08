@@ -8,6 +8,7 @@ import { sendJson, readJsonBody } from '../../lib/http.js';
 import { getPostById, updatePost, markTopicPublished } from '../../lib/admin-data.js';
 import { getSupabaseClient } from '../../lib/supabase.js';
 import { getImageAltByFilename } from '../../lib/images.js';
+import { indexContent } from '../../lib/rag.js';
 
 const EDITABLE_FIELDS = [
   'title', 'meta_title', 'meta_description', 'body_md',
@@ -74,6 +75,14 @@ export default async function handler(req, res) {
     const { publishPost } = await import('../../lib/publish.js');
     const date = new Date().toISOString().slice(0, 10);
     const result = await publishPost({ pkg, date, existingPostId: postId, imageFilename, imageAlt });
+
+    // Newly published post becomes a future RAG source. Best-effort: never
+    // blocks publish if OpenAI embeddings or the content_chunks write fails.
+    try {
+      await indexContent({ sourceType: 'post', sourceId: postId, text: post.body_md });
+    } catch (err) {
+      console.error(`rag index failed for post ${postId}: ${err.message}`);
+    }
 
     await updatePost(postId, { status: 'published', published_at: new Date().toISOString() });
     if (post.topic_id) await markTopicPublished(post.topic_id);
