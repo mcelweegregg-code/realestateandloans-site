@@ -19,8 +19,9 @@ export default async function handler(req, res) {
     return sendJson(res, 501, { error: 'generation is disabled in mock mode; use scripts/test-generation.js' });
   }
 
+  let topicId;
   try {
-    const { topic_id: topicId } = await readJsonBody(req);
+    ({ topic_id: topicId } = await readJsonBody(req));
     if (!topicId) return sendJson(res, 400, { error: 'topic_id is required' });
 
     const supabase = getSupabaseClient();
@@ -105,6 +106,13 @@ export default async function handler(req, res) {
 
     return sendJson(res, 200, { ok: true, post_id: saved.id, lint: result.lint });
   } catch (err) {
+    if (topicId) {
+      try {
+        await getSupabaseClient().from('topics').update({ status: 'reminder_sent' }).eq('id', topicId);
+      } catch (resetErr) {
+        console.error(`resetting topic status failed for topic ${topicId}: ${resetErr.message}`);
+      }
+    }
     return sendJson(res, 500, { error: err.message });
   }
 }
