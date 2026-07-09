@@ -165,9 +165,16 @@ function buildLinksPanel(post) {
   if (rows.length === 0) {
     const msg = post.links_checked_at
       ? 'Checked — no qualifying external sources found for this draft.'
-      : 'Link check pending — the hourly sweep has not processed this draft yet.';
+      : 'Link check pending — the sweep has not processed this draft yet.';
     return `<div class="field"><label>External links</label><p class="meta">${msg}</p></div>`;
   }
+  // Rows can exist before links_checked_at is stamped (e.g. the manual
+  // `npm run links:inject -- --apply` escape hatch) — surface that distinctly
+  // from the zero-rows "hasn't run yet" message above, since it's also why
+  // Publish is disabled below.
+  const sweepPending = !post.links_checked_at
+    ? '<p class="meta lint-warn">Sweep pending — the link check has not completed for this draft; Publish is disabled until it does.</p>'
+    : '';
   const items = rows.map((l) => {
     const contradiction = l.relevancy_reasoning && CONTRADICTION_RE.test(l.relevancy_reasoning)
       ? `<div class="lint-warn">Possible contradiction — this source may dispute the draft's claim: ${escapeHtml(l.relevancy_reasoning)}</div>`
@@ -180,7 +187,7 @@ function buildLinksPanel(post) {
       ${contradiction}
     </div>`;
   }).join('');
-  return `<div class="field"><label>External links (auto-injected, read-only)</label>${items}</div>`;
+  return `<div class="field"><label>External links (auto-injected, read-only)</label>${sweepPending}${items}</div>`;
 }
 
 function buildPostEditor(post) {
@@ -232,7 +239,7 @@ function buildPostEditor(post) {
       <label>Paste in comments</label>
       <input class="copy-url" type="text" readonly value="${escapeHtml(postUrl)}" onclick="this.select()">
     </div>
-    <button class="btn btn--primary" data-action="publish">Publish</button>
+    <button class="btn btn--primary" data-action="publish"${post.links_checked_at ? '' : ' disabled'}>Publish</button>
     <span class="publish-msg meta"></span>
   `;
 
@@ -250,6 +257,10 @@ function buildPostEditor(post) {
   el.querySelector('[data-action="publish"]').addEventListener('click', async (e) => {
     const btn = e.target;
     const msg = el.querySelector('.publish-msg');
+    if (!post.links_checked_at) {
+      msg.textContent = 'Link check pending — cannot publish yet.';
+      return;
+    }
     if (!confirm('Publish this post now? It will commit to the live site.')) return;
     btn.disabled = true; msg.textContent = 'Publishing…'; msg.className = 'publish-msg meta';
     const edits = {};
