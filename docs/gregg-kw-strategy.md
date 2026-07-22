@@ -112,6 +112,18 @@ A narrow but essentially uncontested search term. Very few individual agent page
 
 A branding and geographic authority term rather than a high-intent transactional query. Lower commercial intent on its own, but useful for reinforcing that Gregg's practice covers the full coastal South OC corridor, not just one city. Works well in the homepage and About page copy on greggmcelwee.com, and helps the two domains support each other when both appear in search results.
 
+## **Tier 4: Lead-Tool Cluster (Home Value + Preapproval)**
+
+Added July 2026 alongside the launch of the two lead-capture tool pages, /home-value and /get-preapproved. Neither cluster was in the original list; both are net-new search territory that complements the probate/divorce positioning (executors and divorcing spouses both need a value estimate first) and leverages Gregg's dual real estate/loan-specialist background (NMLS #352232, American Home Realty). Future blog posts and guides that touch valuation or financing should link back to these two pages.
+
+**16\. home value San Clemente / what's my home worth Orange County:**
+
+Primary targets for /home-value. High-volume, dominated nationally by Zillow-style instant estimators, but the page competes on a different promise: a comp-based estimate from a named local agent instead of an algorithm number. Long-tail variants (free home valuation South Orange County, home value estimate San Clemente) are the realistic early wins. Also a natural internal-link target from every probate and divorce piece, since a defensible value is step one in both situations.
+
+**17\. mortgage preapproval Orange County / get preapproved home loan San Clemente:**
+
+Primary targets for /get-preapproved. Ties directly to autoblog topic 24 (real estate agent loan specialist Orange County), which should link to this page. The differentiator to press in content: one person handles both the agent side and the loan side, which is rare enough to be its own angle. Supporting variants: preapproval before house hunting, self-employed home loan Orange County.
+
 # **Suggested Next Steps**
 
 Once you have reviewed this list and are comfortable with the direction, here is how we put it into action:
