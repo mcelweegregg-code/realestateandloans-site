@@ -345,10 +345,26 @@ textarea:focus-visible,
 .nav__menu {
   display: flex;
   align-items: center;
-  gap: var(--gap-loose);
+  /* 8 items: gap-standard (24px) keeps the row inside the 1140px
+     container; gap-loose overflowed once the two lead-tool links
+     were added. */
+  gap: var(--gap-standard);
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* Between the hamburger cutoff (1024px) and full container width
+   (1280px) the container is narrower than 1140px, so the full logo,
+   8 links, and phone cannot share one row. Shed the logo subtitle
+   in that band only. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav__logo-sub {
+    display: none;
+  }
+  .nav {
+    gap: var(--gap-tight);
+  }
 }
 
 .nav__link {
