@@ -411,7 +411,11 @@
         })
         .then(function (data) {
           if (data && data.result === 'success') {
-            form.hidden = true;
+            // Resolve the button out of its loading state but keep it
+            // disabled. (Hiding via form.hidden does not work here: the
+            // stylesheet's .form { display: flex } overrides the hidden
+            // attribute's UA display: none.)
+            submitBtn.textContent = 'Sent!';
             formSuccess.hidden = false;
             formSuccess.focus();
           } else {
