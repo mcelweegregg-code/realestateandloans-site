@@ -359,25 +359,29 @@ textarea:focus-visible,
   .nav {
     flex-wrap: wrap;
     row-gap: 0;
+    align-content: flex-start;
   }
-  .nav__logo,
-  .nav__phone {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--header-h);
+  /* Row-1 height via line-height, NOT flex: making the logo a flex
+     container strips the space before the "|" divider in its span. */
+  .nav__logo {
+    line-height: var(--header-h);
   }
   .nav__phone {
     order: 2;
+    min-height: var(--header-h);
   }
+  /* Negative top margin pulls the nav row up into row 1's centering
+     whitespace so the header reads as one block, not two bars. */
   .nav__menu {
     order: 3;
     flex-basis: 100%;
     justify-content: center;
-    padding-bottom: 16px;
+    margin-top: -14px;
+    padding-bottom: 12px;
   }
   /* Anchor jumps must clear the taller two-row sticky header */
   html {
-    scroll-padding-top: calc(var(--header-h) + 46px);
+    scroll-padding-top: calc(var(--header-h) + 30px);
   }
 }
 
