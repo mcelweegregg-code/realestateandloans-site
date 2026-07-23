@@ -88,6 +88,20 @@
       height: auto;
       border-radius: var(--radius-card);
     }
+    /* 5-card expertise grid: center the short last row. Doubled column
+       count with span-2 cards keeps card widths identical to the plain
+       3-up (or 2-up tablet) grid; shifting the first card of the short
+       row centers the group. Mobile stays single-column via .grid--3. */
+    @media (min-width: 1024px) {
+      .expertise-grid { grid-template-columns: repeat(6, 1fr); }
+      .expertise-grid .card { grid-column: span 2; }
+      .expertise-grid .card:nth-child(4) { grid-column: 2 / span 2; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .expertise-grid { grid-template-columns: repeat(4, 1fr); }
+      .expertise-grid .card { grid-column: span 2; }
+      .expertise-grid .card:nth-child(5) { grid-column: 2 / span 2; }
+    }
   </style>
 </head>
 <body>
@@ -155,7 +169,7 @@
           </div>
         </div>
 
-        <div class="grid grid--3">
+        <div class="grid grid--3 expertise-grid">
           <article class="card">
             <div class="card__body">
               <h3 class="card__title">Probate &amp; Estate Transitions</h3>
