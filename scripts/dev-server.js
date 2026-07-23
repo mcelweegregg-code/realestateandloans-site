@@ -11,7 +11,7 @@
 // dev-only plumbing; production uses real Google OAuth sessions.
 
 import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -52,8 +52,19 @@ async function serveStatic(req, res, urlPath) {
 // Map /api/<segments> to api/<segments>.js
 async function routeApi(req, res, urlPath) {
   const clean = urlPath.split('?')[0].replace(/\/$/, '');
-  const handlerPath = path.join(repoRoot, `${clean}.js`);
+  let handlerPath = path.join(repoRoot, `${clean}.js`);
   if (!handlerPath.startsWith(path.join(repoRoot, 'api'))) { res.statusCode = 403; return res.end('forbidden'); }
+
+  // Vercel-style dynamic segments: when api/<segments>.js does not exist,
+  // fall back to a [param].js file in the same directory (e.g.
+  // /api/admin/topics -> api/admin/[endpoint].js). The dispatcher derives
+  // the segment from req.url, so no query injection is needed here.
+  try { await stat(handlerPath); } catch {
+    try {
+      const bracket = (await readdir(path.dirname(handlerPath))).find((f) => /^\[.+\]\.js$/.test(f));
+      if (bracket) handlerPath = path.join(path.dirname(handlerPath), bracket);
+    } catch { /* directory missing: the import below 404s as before */ }
+  }
 
   // Dev-only mock role plumbing.
   if (MOCK) {
