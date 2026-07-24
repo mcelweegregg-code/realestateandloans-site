@@ -119,7 +119,7 @@ const manual = (item, detail) => results.push({ item, status: 'MANUAL', detail }
 // --- live-run / DNS items (cannot be machine-verified here).
 manual('6. live generation', 'run with real ANTHROPIC_API_KEY; compare to mock; iterate prompts.');
 manual('7. live Whisper', 'record a memo through /admin and confirm transcription.');
-manual('8. live GitHub commit', 'publish with real GITHUB_TOKEN + GITHUB_REPO; confirm single commit.');
+manual('8. live GitHub commit', 'publish with real GITHUB_TOKEN + GH_REPO; confirm single commit.');
 manual('9. live Supabase writes', 'apply migrations 0001+0002; confirm posts/voice_memos rows written.');
 manual('10. deploy verification', 'set VERIFY_BASE_URL; confirm post-publish URL polling succeeds.');
 manual('11. DNS cutover', 'follow docs/launch-checklist.md DNS section (Cloudflare → Vercel).');

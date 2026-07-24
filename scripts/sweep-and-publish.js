@@ -12,7 +12,7 @@
 // inserted a brand-new posts row because no row existed yet at that point.
 //
 // Requires: SERPAPI_API_KEY, ANTHROPIC_API_KEY, SUPABASE_URL,
-// SUPABASE_SERVICE_ROLE_KEY, GITHUB_TOKEN, GITHUB_REPO, GITHUB_BRANCH,
+// SUPABASE_SERVICE_ROLE_KEY, GITHUB_TOKEN, GH_REPO, GH_BRANCH,
 // GOOGLE_SHEETS_SPREADSHEET_ID, GOOGLE_SERVICE_ACCOUNT_KEY.
 // VERIFY_BASE_URL is optional (publishPost skips live verification if unset).
 

@@ -7,7 +7,7 @@
 // --dry-run validates everything, renders all four files into
 // content/publish-dryrun/<slug>/ and prints the commit plan, the Supabase
 // record, and the Sheet row WITHOUT touching GitHub, Supabase, or the Sheet.
-// A live run requires GITHUB_TOKEN/GITHUB_REPO (+ SUPABASE_*, SHEETS_*).
+// A live run requires GITHUB_TOKEN/GH_REPO (+ SUPABASE_*, SHEETS_*).
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';

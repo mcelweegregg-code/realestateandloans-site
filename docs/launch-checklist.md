@@ -45,7 +45,7 @@ Set every variable from `.env.example` in the Vercel project (and locally in
 - [ ] **Anthropic:** `ANTHROPIC_API_KEY` (generation, `claude-sonnet-4-6`).
 - [ ] **OpenAI:** `OPENAI_API_KEY` (Whisper transcription + RAG embeddings).
 - [ ] **GitHub:** `GITHUB_TOKEN` (contents read/write on this repo),
-  `GITHUB_REPO` (`owner/name`), `GITHUB_BRANCH` (`main`). **The repo needs a
+  `GH_REPO` (`owner/name`), `GH_BRANCH` (`main`). **The repo needs a
   GitHub remote and an initial push first — it has none yet.**
 - [ ] **Google OAuth:** `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`; authorized
   redirect URI `<origin>/api/auth/google`. `SESSION_SECRET` = long random string.
