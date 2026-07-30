@@ -15,7 +15,7 @@ These values come from Supabase at generation time and are injected as template 
 {{PRIMARY_KEYWORD}}    — e.g. "probate real estate Orange County"
 {{TRANSCRIPT}}         — full text of Gregg's voice memo transcript from Whisper
 {{GUIDING_QUESTIONS}}  — the 3-4 questions shown to Gregg in the admin UI for this topic
-{{PRIOR_POSTS}}        — JSON array of last 5 published post titles + slugs (for internal linking + repetition avoidance)
+{{PRIOR_POSTS}}        — JSON array of last 5 published post titles + full /blog/ URLs (for internal linking + repetition avoidance)
 {{STATIC_TOV}}         — the full static TOV profile (see gregg-tov-profile.md)
 {{DYNAMIC_TOV}}        — JSON output of dynamic TOV extraction pre-pass (see below)
 {{RAG_FLAG}}           — boolean: true if this is a RAG fallback run (no voice memo)
@@ -133,7 +133,7 @@ Pool A — realestateandloans.com static pages:
 - Guide — First-Time Buyer San Clemente: https://realestateandloans.com/guides/first-time-buyer-san-clemente
 - Guide — Choosing Agent South OC: https://realestateandloans.com/guides/choosing-agent-south-orange-county
 - Guide — OC Market Overview: https://realestateandloans.com/guides/orange-county-market-overview
-- [OR: slug of a recently published blog post from PRIOR_POSTS if more relevant]
+- [OR: a recently published blog post from PRIOR_POSTS if more relevant — use its "url" field verbatim; never build a post URL yourself]
 
 Pool B — greggmcelwee.com pages:
 - Home: https://greggmcelwee.com/
