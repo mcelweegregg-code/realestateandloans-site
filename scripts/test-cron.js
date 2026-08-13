@@ -1,8 +1,12 @@
 // M6 mock test harness. Runs the reminder and publish cron jobs in mock
 // mode against the cron-data fixtures, exercising every branch:
 //   - reminder job: one topic per ladder stage (3d / 2d / 1d), email only
-//   - publish job, toggle OFF: auto-publish, both voice-memo and RAG paths
-//   - publish job, toggle ON: save pending_review + ping editor
+//   - publish job: generation only, both voice-memo and RAG paths — every
+//     topic lands in pending_review regardless of toggle (publishing moved
+//     to the GHA sweep); toggle ON additionally pings the editor
+//   - per-run topic cap: default run processes one topic, defers the rest
+// The two-topic plumbing runs pass maxTopics: 2 explicitly to process both
+// fixtures in one run; the cap run uses the default of 1.
 //
 // No credentials needed. Usage: node scripts/test-cron.js
 //
@@ -36,15 +40,19 @@ hr('REMINDER JOB (today=2026-06-19, ladder targets 06-22/3d, 06-21/2d, 06-20/1d)
 const remSummary = await runReminderJob();
 console.log(JSON.stringify(remSummary, null, 2));
 
-hr('PUBLISH JOB — editor toggle OFF (auto-publish)');
+hr('PUBLISH JOB — editor toggle OFF (generation only, drafts to pending_review)');
 await setEditorToggle('off');
-const offSummary = await runPublishJob();
+const offSummary = await runPublishJob({ maxTopics: 2 });
 console.log(JSON.stringify(offSummary, null, 2));
 
 hr('PUBLISH JOB — editor toggle ON (pending_review + editor ping)');
 await setEditorToggle('on');
-const onSummary = await runPublishJob();
+const onSummary = await runPublishJob({ maxTopics: 2 });
 console.log(JSON.stringify(onSummary, null, 2));
+
+hr('PUBLISH JOB — default per-run cap (one topic, second deferred)');
+const capSummary = await runPublishJob();
+console.log(JSON.stringify(capSummary, null, 2));
 
 // ---- assertions -------------------------------------------------------
 hr('ASSERTIONS');
@@ -61,14 +69,18 @@ assert('REMINDER: recorded topic-a untouched', !remByTopic['cron-topic-a']);
 const offByTopic = Object.fromEntries(offSummary.processed.map((p) => [p.topicId, p]));
 assert('OFF: topic-a used voice_memo path', offByTopic['cron-topic-a']?.mode === 'voice_memo');
 assert('OFF: topic-b used rag_fallback path', offByTopic['cron-topic-b']?.mode === 'rag_fallback');
-assert('OFF: topic-a auto-published', offByTopic['cron-topic-a']?.action === 'published');
-assert('OFF: topic-b auto-published', offByTopic['cron-topic-b']?.action === 'published');
-assert('OFF: both produced a post URL', offSummary.processed.every((p) => p.postUrl));
+assert('OFF: topic-a saved to pending_review', offByTopic['cron-topic-a']?.action === 'pending_review');
+assert('OFF: topic-b saved to pending_review', offByTopic['cron-topic-b']?.action === 'pending_review');
+assert('OFF: both produced a post id', offSummary.processed.every((p) => p.postId));
 
 const onByTopic = Object.fromEntries(onSummary.processed.map((p) => [p.topicId, p]));
 assert('ON: topic-a saved to pending_review', onByTopic['cron-topic-a']?.action === 'pending_review');
 assert('ON: topic-a editor ping sent', onByTopic['cron-topic-a']?.reviewPing?.ok === true);
 assert('ON: nothing was published', onSummary.processed.every((p) => p.action === 'pending_review'));
+
+assert('CAP: default run processes exactly one topic', capSummary.processed.length === 1);
+assert('CAP: oldest topic (topic-a) went first', capSummary.processed[0]?.topicId === 'cron-topic-a');
+assert('CAP: second topic recorded as deferred', capSummary.deferred?.length === 1 && capSummary.deferred[0].topicId === 'cron-topic-b');
 
 let failed = 0;
 for (const c of checks) { console.log(`  ${c.pass ? 'PASS' : 'FAIL'}  ${c.name}`); if (!c.pass) failed++; }
