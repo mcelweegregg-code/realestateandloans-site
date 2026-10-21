@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "slug": "home-closing-process-california",
+      "title": "How the Home Closing Process in California Actually Works",
+      "date": "2026-10-21",
+      "description": "From escrow opening to key handoff, here's what actually happens between accepted offer and closing in California and what can go wrong along the way.",
+      "image": "assets/images/blog/buyer-seller/hand-giving-key-real-estate-agent.webp",
+      "readMinutes": 5
+    },
+    {
       "slug": "selling-a-home-san-clemente-first-time-sellers",
       "title": "What I Tell First-Time Sellers About Selling a Home in San Clemente",
       "date": "2026-10-14",
