@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "slug": "south-orange-county-living",
+      "title": "What South Orange County Living Is Actually Like",
+      "date": "2026-11-11",
+      "description": "Relocating to South OC? Gregg McElwee has worked this coast for nearly 40 years and lived here for four. Here's what life actually looks like down here.",
+      "image": "assets/images/blog/local/beautiful-palm-tree-blue-sky.webp",
+      "readMinutes": 4
+    },
+    {
       "slug": "negotiating-home-offer-tips",
       "title": "Negotiating Home Offer Tips That Keep the Deal Alive",
       "date": "2026-11-04",
